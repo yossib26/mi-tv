@@ -2,10 +2,19 @@
 // אחרי הדבקה: Deploy > Manage deployments > ערכו את הפריסה הקיימת > Version: New version > Deploy
 // הסקריפט קורא את שורת הכותרות בגיליון ומשבץ כל ערך לעמודה המתאימה לפי שם הכותרת,
 // כך שסדר/מיקום העמודות בגיליון לא משנה - אפשר להוסיף/להזיז עמודות בלי לשבור את הקוד.
+//
+// חדש: אם נשלחה חשבונית, היא נשמרת ל-Google Drive בתיקייה "Coffee Club Invoices"
+// והקישור אליה נכתב לעמודה בשם "חשבונית". יש להוסיף עמודה כזו בשורת הכותרות בגיליון.
+// בפעם הראשונה שתריצו, Google יבקש הרשאת גישה ל-Drive - יש לאשר.
 
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
+
+  var invoiceUrl = "";
+  if (data.invoiceData) {
+    invoiceUrl = saveInvoice_(data);
+  }
 
   var fieldsByHeader = {
     "תאריך": new Date(),
@@ -15,6 +24,7 @@ function doPost(e) {
     "אימייל": data.email || "",
     "מתנה": data.giftLabel || data.gift || "",
     "נרכשה": data.machineLabel || data.machine || "",
+    "חשבונית": invoiceUrl,
   };
 
   var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
@@ -27,4 +37,24 @@ function doPost(e) {
   return ContentService
     .createTextOutput(JSON.stringify({ status: "ok" }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+function saveInvoice_(data) {
+  try {
+    var folderName = "Coffee Club Invoices";
+    var folders = DriveApp.getFoldersByName(folderName);
+    var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
+
+    var bytes = Utilities.base64Decode(data.invoiceData);
+    var contentType = data.invoiceType || "application/octet-stream";
+    var safeName =
+      (data.firstName || "") + "_" + (data.lastName || "") + "_" +
+      new Date().getTime() + "_" + (data.invoiceName || "invoice");
+
+    var blob = Utilities.newBlob(bytes, contentType, safeName);
+    var file = folder.createFile(blob);
+    return file.getUrl();
+  } catch (err) {
+    return "ERROR: " + err.message;
+  }
 }

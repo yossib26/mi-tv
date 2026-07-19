@@ -129,6 +129,24 @@ body {
   min-height: 1em;
 }
 
+.optional-tag {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.file-hint {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.field-group input[type="file"] {
+  padding: 9px 12px;
+  font-size: 0.85rem;
+  background: var(--bg-cream);
+  cursor: pointer;
+}
+
 .form-actions {
   display: flex;
   gap: 12px;

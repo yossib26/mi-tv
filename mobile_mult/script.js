@@ -9,6 +9,10 @@ const state = {
   gift: null,
 };
 
+// חשבונית (רשות) - נקראת ל-base64 בעת בחירת קובץ.
+const invoice = { data: null, name: "", type: "" };
+const INVOICE_MAX_BYTES = 5 * 1024 * 1024;
+
 const machineLabels = {
   solo: "Caffeo Solo",
   purista: "Purista",
@@ -25,6 +29,9 @@ function submitToSheet() {
       ...state,
       machineLabel: machineLabels[state.machine],
       giftLabel: giftLabels[state.gift],
+      invoiceData: invoice.data,
+      invoiceName: invoice.name,
+      invoiceType: invoice.type,
     }),
   }).catch((err) => console.error("Failed to save registration:", err));
 }
@@ -135,6 +142,47 @@ detailsForm.addEventListener("submit", (e) => {
   });
 });
 
+const invoiceInput = document.getElementById("invoice");
+const invoiceError = detailsForm.querySelector('[data-error-for="invoice"]');
+const invoiceHint = document.getElementById("invoice-hint");
+
+invoiceInput.addEventListener("change", () => {
+  invoice.data = null;
+  invoice.name = "";
+  invoice.type = "";
+  invoiceError.textContent = "";
+
+  const file = invoiceInput.files[0];
+  if (!file) {
+    invoiceHint.textContent = "תמונה או PDF, עד 5MB";
+    return;
+  }
+
+  const isAllowed = file.type.startsWith("image/") || file.type === "application/pdf";
+  if (!isAllowed) {
+    invoiceError.textContent = "יש להעלות קובץ תמונה או PDF בלבד";
+    invoiceInput.value = "";
+    return;
+  }
+  if (file.size > INVOICE_MAX_BYTES) {
+    invoiceError.textContent = "הקובץ גדול מדי (מקסימום 5MB)";
+    invoiceInput.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    invoice.data = String(reader.result).split(",")[1] || "";
+    invoice.name = file.name;
+    invoice.type = file.type;
+    invoiceHint.textContent = "✓ נבחר: " + file.name;
+  };
+  reader.onerror = () => {
+    invoiceError.textContent = "שגיאה בקריאת הקובץ, נסו שוב";
+  };
+  reader.readAsDataURL(file);
+});
+
 const giftCards = document.querySelectorAll(".gift-card");
 const confirmGiftButton = document.getElementById("confirm-gift-button");
 
@@ -184,6 +232,8 @@ function renderConfirmation() {
     ["מתנה שנבחרה", giftLabels[state.gift]],
   ];
 
+  if (invoice.name) rows.push(["חשבונית", invoice.name]);
+
   rows.forEach(([label, value]) => {
     const row = document.createElement("div");
     row.innerHTML = `<dt>${label}</dt><dd>${value}</dd>`;
@@ -209,6 +259,13 @@ document.getElementById("restart-button").addEventListener("click", () => {
     c.setAttribute("aria-selected", "false");
   });
   startButton.disabled = true;
+
+  invoice.data = null;
+  invoice.name = "";
+  invoice.type = "";
+  invoiceInput.value = "";
+  invoiceError.textContent = "";
+  invoiceHint.textContent = "תמונה או PDF, עד 5MB";
 
   Object.keys(state).forEach((key) => (state[key] = key === "gift" || key === "machine" ? null : ""));
 
