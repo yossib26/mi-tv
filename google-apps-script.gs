@@ -1,35 +1,11 @@
-// הדביקו קובץ זה ב-Extensions > Apps Script של גיליון ה-Google Sheets.
-// אחרי הדבקה: Deploy > Manage deployments > ערכו את הפריסה > Version: New version > Deploy.
-//
-// הגדרת סוד לממשק הניהול (חד-פעמי):
-//   Project Settings (סמל גלגל השיניים) > Script Properties > Add script property
-//   Property: ADMIN_TOKEN   Value: <בחרו סוד כלשהו - תזינו אותו גם בממשק הניהול>
-//
-// הסקריפט מטפל בשלושה דברים:
-//   POST ללא action / action="register"  -> מוסיף שורת הרשמה לגיליון (לפי שמות הכותרות)
-//   POST action="saveConfig" + token     -> שומר קונפיגורציה (מכונות/מתנות/טקסטים)
-//   GET  (או ?type=config)               -> מחזיר את הקונפיגורציה השמורה
+// הדביקו קובץ זה ב-Extensions > Apps Script של גיליון ה-Google Sheets
+// אחרי הדבקה: Deploy > Manage deployments > ערכו את הפריסה הקיימת > Version: New version > Deploy
+// הסקריפט קורא את שורת הכותרות בגיליון ומשבץ כל ערך לעמודה המתאימה לפי שם הכותרת,
+// כך שסדר/מיקום העמודות בגיליון לא משנה - אפשר להוסיף/להזיז עמודות בלי לשבור את הקוד.
 
 function doPost(e) {
-  var data = JSON.parse(e.postData.contents);
-
-  if (data.action === "saveConfig") {
-    return saveConfig_(data);
-  }
-
-  return appendRegistration_(data);
-}
-
-function doGet(e) {
-  var props = PropertiesService.getScriptProperties();
-  var config = props.getProperty("SITE_CONFIG");
-  return ContentService
-    .createTextOutput(config || "{}")
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function appendRegistration_(data) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
 
   var fieldsByHeader = {
     "תאריך": new Date(),
@@ -48,23 +24,7 @@ function appendRegistration_(data) {
 
   sheet.appendRow(row);
 
-  return jsonOut_({ status: "ok" });
-}
-
-function saveConfig_(data) {
-  var props = PropertiesService.getScriptProperties();
-  var expected = props.getProperty("ADMIN_TOKEN");
-
-  if (!expected || data.token !== expected) {
-    return jsonOut_({ status: "error", message: "unauthorized" });
-  }
-
-  props.setProperty("SITE_CONFIG", JSON.stringify(data.config || {}));
-  return jsonOut_({ status: "ok" });
-}
-
-function jsonOut_(obj) {
   return ContentService
-    .createTextOutput(JSON.stringify(obj))
+    .createTextOutput(JSON.stringify({ status: "ok" }))
     .setMimeType(ContentService.MimeType.JSON);
 }
