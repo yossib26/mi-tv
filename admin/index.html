@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ממשק ניהול | Coffee Club</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <h1>☕ ממשק ניהול — Coffee Club</h1>
+    <div class="admin-actions">
+      <button type="button" id="reload-button" class="btn btn-secondary">טען מחדש</button>
+      <button type="button" id="save-button" class="btn btn-primary">שמור שינויים</button>
+    </div>
+  </header>
+
+  <p id="status" class="status" role="status"></p>
+
+  <main class="admin-main">
+    <section class="panel">
+      <h2>🔑 סוד גישה לשמירה</h2>
+      <p class="hint">הזינו את ה-ADMIN_TOKEN שהגדרתם ב-Apps Script (Script Properties). הוא נשמר מקומית בדפדפן זה בלבד ומשמש לאישור שמירה.</p>
+      <input type="password" id="admin-token" class="text-input" placeholder="ADMIN_TOKEN" autocomplete="off" />
+    </section>
+
+    <section class="panel">
+      <h2>📝 טקסטים</h2>
+      <div id="texts-fields" class="texts-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>☕ מכונות קפה</h2>
+        <button type="button" id="add-machine" class="btn btn-add">+ הוסף מכונה</button>
+      </div>
+      <div id="machines-list" class="items-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>🎁 מתנות (אוזניות)</h2>
+        <button type="button" id="add-gift" class="btn btn-add">+ הוסף מתנה</button>
+      </div>
+      <div id="gifts-list" class="items-list"></div>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
