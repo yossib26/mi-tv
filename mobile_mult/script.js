@@ -21,7 +21,11 @@ function submitToSheet() {
 
   fetch(SHEETS_WEBHOOK_URL, {
     method: "POST",
-    body: JSON.stringify(state),
+    body: JSON.stringify({
+      ...state,
+      machineLabel: machineLabels[state.machine],
+      giftLabel: giftLabels[state.gift],
+    }),
   }).catch((err) => console.error("Failed to save registration:", err));
 }
 

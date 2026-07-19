@@ -1,20 +1,28 @@
 // הדביקו קובץ זה ב-Extensions > Apps Script של גיליון ה-Google Sheets
-// אחרי הדבקה: Deploy > New deployment > Web app
-// Execute as: Me | Who has access: Anyone
-// העתיקו את כתובת ה-Web app (מסתיימת ב-/exec) ועדכנו אותה ב-script.js תחת SHEETS_WEBHOOK_URL
+// אחרי הדבקה: Deploy > Manage deployments > ערכו את הפריסה הקיימת > Version: New version > Deploy
+// הסקריפט קורא את שורת הכותרות בגיליון ומשבץ כל ערך לעמודה המתאימה לפי שם הכותרת,
+// כך שסדר/מיקום העמודות בגיליון לא משנה - אפשר להוסיף/להזיז עמודות בלי לשבור את הקוד.
 
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   var data = JSON.parse(e.postData.contents);
 
-  sheet.appendRow([
-    new Date(),
-    data.firstName,
-    data.lastName,
-    data.phone,
-    data.email,
-    data.gift,
-  ]);
+  var fieldsByHeader = {
+    "תאריך": new Date(),
+    "שם פרטי": data.firstName || "",
+    "שם משפחה": data.lastName || "",
+    "טלפון": data.phone || "",
+    "אימייל": data.email || "",
+    "מתנה": data.giftLabel || data.gift || "",
+    "נרכשה": data.machineLabel || data.machine || "",
+  };
+
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var row = headers.map(function (header) {
+    return fieldsByHeader.hasOwnProperty(header) ? fieldsByHeader[header] : "";
+  });
+
+  sheet.appendRow(row);
 
   return ContentService
     .createTextOutput(JSON.stringify({ status: "ok" }))
