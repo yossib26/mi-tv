@@ -1,3 +1,5 @@
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzcHQtKOy3GFwtCXDyTdaxJdOKdxgX6iRnM0u75_ovlKBQpLLOBLwLywLm1vBaW9eMC/exec";
+
 const state = {
   firstName: "",
   lastName: "",
@@ -5,6 +7,15 @@ const state = {
   email: "",
   gift: null,
 };
+
+function submitToSheet() {
+  if (!SHEETS_WEBHOOK_URL || SHEETS_WEBHOOK_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL") return;
+
+  fetch(SHEETS_WEBHOOK_URL, {
+    method: "POST",
+    body: JSON.stringify(state),
+  }).catch((err) => console.error("Failed to save registration:", err));
+}
 
 const giftLabels = {
   lifeP3: "Soundcore Life P3",
@@ -116,6 +127,7 @@ document.getElementById("back-button").addEventListener("click", () => {
 document.getElementById("confirm-gift-button").addEventListener("click", () => {
   if (!state.gift) return;
   renderConfirmation();
+  submitToSheet();
   goToScreen("confirm");
 });
 
