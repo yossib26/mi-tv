@@ -10,12 +10,25 @@
   <div class="app-shell">
 
     <div class="progress-dots" aria-hidden="true">
-      <span class="dot active" data-step="1"></span>
+      <span class="dot active" data-step="0"></span>
+      <span class="dot" data-step="1"></span>
       <span class="dot" data-step="2"></span>
     </div>
 
+    <!-- מסך 0: מסך מקדים -->
+    <section id="screen-0" class="screen active" aria-labelledby="screen0-title">
+      <div class="intro-panel">
+        <img src="c1.jpg" alt="מכונת הקפה C1" class="machine-image" />
+        <h1 id="screen0-title">רכשת את המכונה!</h1>
+        <p>המשך לבחירת מתנה</p>
+        <div class="form-actions">
+          <button type="button" id="start-button" class="primary-button">המשך ←</button>
+        </div>
+      </div>
+    </section>
+
     <!-- מסך 1: פרטים אישיים -->
-    <section id="screen-1" class="screen active" aria-labelledby="screen1-title">
+    <section id="screen-1" class="screen" aria-labelledby="screen1-title">
       <div class="screen-header">
         <h1 id="screen1-title">☕ מצטרפים למועדון הקפה</h1>
         <p>מלאו את הפרטים שלכם כדי להמשיך לבחירת מתנה</p>

@@ -201,6 +201,30 @@ body {
   margin: 0;
 }
 
+.intro-panel {
+  text-align: center;
+}
+
+.machine-image {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 24px rgba(59, 35, 23, 0.25);
+}
+
+.intro-panel h1 {
+  font-size: 1.5rem;
+  color: #3b2317;
+  margin: 0 0 8px;
+}
+
+.intro-panel p {
+  color: #8a7566;
+  margin: 0 0 20px;
+  font-size: 1rem;
+}
+
 .confirm-panel {
   text-align: center;
 }

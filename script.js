@@ -14,6 +14,7 @@ const giftLabels = {
 };
 
 const screens = {
+  0: document.getElementById("screen-0"),
   1: document.getElementById("screen-1"),
   2: document.getElementById("screen-2"),
   confirm: document.getElementById("screen-confirm"),
@@ -29,6 +30,10 @@ function goToScreen(key) {
     dot.classList.toggle("active", dot.dataset.step === String(key));
   });
 }
+
+document.getElementById("start-button").addEventListener("click", () => {
+  goToScreen(1);
+});
 
 const detailsForm = document.getElementById("details-form");
 
