@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Club - הרשמה ובחירת מתנה</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <div class="progress-dots" aria-hidden="true">
+      <span class="dot active" data-step="0"></span>
+      <span class="dot" data-step="1"></span>
+      <span class="dot" data-step="2"></span>
+    </div>
+
+    <!-- מסך 0: מסך מקדים -->
+    <section id="screen-0" class="screen active" aria-labelledby="screen0-title">
+      <div class="intro-panel">
+        <img src="c1.jpg" alt="מכונת הקפה C1" class="machine-image" />
+        <h1 id="screen0-title">רכשת את המכונה!</h1>
+        <p>המשך לבחירת מתנה</p>
+        <div class="form-actions">
+          <button type="button" id="start-button" class="primary-button">המשך ←</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- מסך 1: פרטים אישיים -->
+    <section id="screen-1" class="screen" aria-labelledby="screen1-title">
+      <div class="screen-header">
+        <h1 id="screen1-title">☕ מצטרפים למועדון הקפה</h1>
+        <p>מלאו את הפרטים שלכם כדי להמשיך לבחירת מתנה</p>
+      </div>
+
+      <form id="details-form" class="details-form" novalidate>
+        <div class="field-group">
+          <label for="firstName">שם פרטי</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name" />
+          <span class="error-msg" data-error-for="firstName"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="lastName">שם משפחה</label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name" />
+          <span class="error-msg" data-error-for="lastName"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="phone">טלפון</label>
+          <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="05X-XXXXXXX" />
+          <span class="error-msg" data-error-for="phone"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="email">אימייל</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="name@example.com" />
+          <span class="error-msg" data-error-for="email"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button">המשך לבחירת מתנה ←</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- מסך 2: בחירת מתנה -->
+    <section id="screen-2" class="screen" aria-labelledby="screen2-title">
+      <div class="screen-header">
+        <h1 id="screen2-title">🎁 בחרו את המתנה שלכם</h1>
+        <p>בחרו את דגם אוזניות ה-Anker הרצוי</p>
+      </div>
+
+      <div class="gift-grid" id="gift-carousel" role="listbox" aria-label="אפשרויות מתנה">
+        <article class="gift-card" data-gift="lifeP3" tabindex="0" role="option" aria-selected="false">
+          <div class="gift-icon">🎧</div>
+          <h3>Soundcore Life P3</h3>
+          <p>אוזניות אלחוטיות עם ביטול רעשים אקטיבי</p>
+        </article>
+
+        <article class="gift-card" data-gift="spaceA40" tabindex="0" role="option" aria-selected="false">
+          <div class="gift-icon">🎧</div>
+          <h3>Soundcore Space A40</h3>
+          <p>ביטול רעשים אדפטיבי וסוללה ארוכה</p>
+        </article>
+
+        <article class="gift-card" data-gift="liberty4" tabindex="0" role="option" aria-selected="false">
+          <div class="gift-icon">🎧</div>
+          <h3>Soundcore Liberty 4</h3>
+          <p>איכות סאונד פרימיום עם ANC</p>
+        </article>
+
+        <article class="gift-card" data-gift="r50i" tabindex="0" role="option" aria-selected="false">
+          <div class="gift-icon">🎧</div>
+          <h3>Soundcore R50i NC</h3>
+          <p>אוזניות ספורט עמידות במים עם ANC</p>
+        </article>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="back-button" class="secondary-button">→ חזרה</button>
+        <button type="button" id="confirm-gift-button" class="primary-button" disabled>אישור והרשמה</button>
+      </div>
+    </section>
+
+    <!-- מסך אישור -->
+    <section id="screen-confirm" class="screen" aria-labelledby="confirm-title">
+      <div class="confirm-panel">
+        <div class="confirm-icon">✅</div>
+        <h1 id="confirm-title">תודה, ההרשמה הושלמה!</h1>
+        <p>פרטי ההרשמה שלכם:</p>
+        <dl class="confirm-details" id="confirm-details"></dl>
+        <button type="button" id="restart-button" class="secondary-button">הרשמה חדשה</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
