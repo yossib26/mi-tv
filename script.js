@@ -7,11 +7,10 @@ const state = {
 };
 
 const giftLabels = {
-  bag: "שקית קפה טרייה",
-  pastry: "מאפה חינם",
-  beans500: "אריזת פולים 500 גרם",
-  upsize: "שדרוג גודל חינם",
-  discount: "10% הנחה",
+  lifeP3: "Soundcore Life P3",
+  spaceA40: "Soundcore Space A40",
+  liberty4: "Soundcore Liberty 4",
+  r50i: "Soundcore R50i NC",
 };
 
 const screens = {

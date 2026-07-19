@@ -156,32 +156,19 @@ body {
   transform: scale(0.98);
 }
 
-.gift-carousel {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 6px 4px 18px;
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 6px 2px 18px;
   margin-bottom: 8px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.gift-carousel::-webkit-scrollbar {
-  height: 6px;
-}
-
-.gift-carousel::-webkit-scrollbar-thumb {
-  background: #e0d2c3;
-  border-radius: 3px;
 }
 
 .gift-card {
-  flex: 0 0 68%;
-  scroll-snap-align: center;
   background: #fff;
   border: 2px solid #e0d2c3;
   border-radius: 16px;
-  padding: 20px 16px;
+  padding: 18px 12px;
   text-align: center;
   cursor: pointer;
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
