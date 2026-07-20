@@ -1,4 +1,4 @@
-const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxU55pZtXoGjsatNbrRnvSeVcpMGgeC8lAaD5kc-toGWLQ2G-oWTGjlMJoGUGp2pQg/exec";
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwLf6nfUbOqyGJoOSmRNNiFc_mKi0tEAl_-GXmVrZwDQF4w_8xnIhYdPavI7azFtCnU/exec";
 
 // הקטלוג נטען מקובץ ה-CSV שבשורש הפרויקט.
 // כל שורה בקובץ היא צירוף של מכונה + מתנה, כך שניתן להגדיר מתנות שונות לכל מכונה.
