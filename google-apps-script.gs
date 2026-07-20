@@ -5,7 +5,19 @@
 //
 // חדש: אם נשלחה חשבונית, היא נשמרת ל-Google Drive בתיקייה "Coffee Club Invoices"
 // והקישור אליה נכתב לעמודה בשם "חשבונית". יש להוסיף עמודה כזו בשורת הכותרות בגיליון.
-// בפעם הראשונה שתריצו, Google יבקש הרשאת גישה ל-Drive - יש לאשר.
+//
+// ⚠️ חובה לאשר הרשאת Drive לפני שהעלאת חשבונית תעבוד:
+//    1. בחרו למעלה את הפונקציה authorizeDrive ולחצו Run (▶).
+//    2. Google יבקש הרשאות - אשרו את הגישה ל-Drive.
+//    3. רק אז בצעו Deploy > Manage deployments > New version > Deploy.
+
+// הריצו ידנית פעם אחת כדי לאשר את הרשאת ה-Drive (וגם יוצר את תיקיית היעד).
+function authorizeDrive() {
+  var folderName = "Coffee Club Invoices";
+  var folders = DriveApp.getFoldersByName(folderName);
+  var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
+  Logger.log("OK - הרשאת Drive אושרה. תיקייה מוכנה: " + folder.getName());
+}
 
 function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
