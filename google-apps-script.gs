@@ -28,20 +28,43 @@ function doPost(e) {
     invoiceUrl = saveInvoice_(data);
   }
 
-  var fieldsByHeader = {
-    "תאריך": new Date(),
-    "שם פרטי": data.firstName || "",
-    "שם משפחה": data.lastName || "",
-    "טלפון": data.phone || "",
-    "אימייל": data.email || "",
-    "מתנה": data.giftLabel || data.gift || "",
-    "נרכשה": data.machineLabel || data.machine || "",
-    "חשבונית": invoiceUrl,
-  };
+  // כל ערך והכותרות שהוא מתאים להן. אפשר לכתוב בגיליון כל אחת מהחלופות
+  // (עם/בלי גרשיים, "מכונה" או "מכונת קפה") והערך ישובץ נכון.
+  var fields = [
+    { value: new Date(), headers: ["תאריך"] },
+    { value: data.firstName || "", headers: ["שם פרטי"] },
+    { value: data.lastName || "", headers: ["שם משפחה"] },
+    { value: data.phone || "", headers: ["טלפון"] },
+    { value: data.email || "", headers: ["אימייל"] },
+    { value: data.giftLabel || data.gift || "", headers: ["מתנה", "שם מתנה"] },
+    { value: data.machineLabel || data.machine || "", headers: ["נרכשה", "מכונה", "מכונה שנרכשה"] },
+    { value: invoiceUrl, headers: ["חשבונית"] },
+    {
+      value: data.machineSku || "",
+      headers: ["מק״ט מכונה", "מקט מכונה", "מק״ט מכונת קפה", "מקט מכונת קפה"],
+    },
+    {
+      value: data.giftSku || "",
+      headers: ["מק״ט מתנה", "מקט מתנה"],
+    },
+  ];
+
+  // התאמה גמישה: מתעלמת מרווחים ומסוגי גרשיים שונים
+  function normalize_(text) {
+    return String(text).replace(/["'׳״‘’“”]/g, "").replace(/\s+/g, "");
+  }
+
+  var valueByHeader = {};
+  fields.forEach(function (field) {
+    field.headers.forEach(function (header) {
+      valueByHeader[normalize_(header)] = field.value;
+    });
+  });
 
   var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   var row = headers.map(function (header) {
-    return fieldsByHeader.hasOwnProperty(header) ? fieldsByHeader[header] : "";
+    var key = normalize_(header);
+    return valueByHeader.hasOwnProperty(key) ? valueByHeader[key] : "";
   });
 
   sheet.appendRow(row);

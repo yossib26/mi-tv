@@ -2,12 +2,22 @@ const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxU55pZtXoGj
 
 const state = {
   machine: null,
+  machineSku: "",
   firstName: "",
   lastName: "",
   phone: "",
   email: "",
   gift: null,
+  giftSku: "",
 };
+
+// מק"ט המוצר נגזר משם קובץ התמונה: img/c_30002.jpg -> 30002
+function skuFromCard(card) {
+  const img = card.querySelector("img");
+  if (!img) return "";
+  const match = (img.getAttribute("src") || "").match(/_([^/._]+)\.[a-z0-9]+$/i);
+  return match ? match[1] : "";
+}
 
 // חשבונית (רשות) - נקראת ל-base64 בעת בחירת קובץ.
 const invoice = { data: null, name: "", type: "" };
@@ -88,6 +98,7 @@ function selectMachine(card) {
   card.setAttribute("aria-selected", "true");
 
   state.machine = card.dataset.machine;
+  state.machineSku = skuFromCard(card);
   startButton.disabled = false;
 }
 
@@ -211,6 +222,7 @@ function selectGift(card) {
   card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
 
   state.gift = card.dataset.gift;
+  state.giftSku = skuFromCard(card);
   confirmGiftButton.disabled = false;
 }
 
