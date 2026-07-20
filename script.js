@@ -18,6 +18,10 @@ const machineLabels = {
   purista: "Purista",
   baristaTS: "Barista T Smart",
   avanza: "Avanza",
+  ciTouch: "CI Touch",
+  latticia: "Latticia OT",
+  varianza: "Varianza CSP",
+  passione: "Passione OT",
 };
 
 function submitToSheet() {
@@ -41,6 +45,7 @@ const giftLabels = {
   spaceA40: "Soundcore Space A40",
   liberty4: "Soundcore Liberty 4",
   r50i: "Soundcore R50i NC",
+  spaceOne: "Soundcore Space One",
 };
 
 const screens = {

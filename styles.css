@@ -100,6 +100,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0; /* מאפשר לשדות להצטמצם בתוך תא ה-grid */
 }
 
 /* שדות שנפרסים על כל הרוחב (חשבונית, כפתורים) */
@@ -115,6 +116,8 @@ body {
 }
 
 .field-group input {
+  width: 100%;
+  min-width: 0; /* מונע גלישה של input[type=file] שרוחבו המובנה גדול מהתא */
   padding: 13px 16px;
   border: 1.5px solid var(--border-light);
   border-radius: 6px;
@@ -217,6 +220,12 @@ body {
   margin-bottom: 20px;
 }
 
+/* 5 מתנות - שורה אחת בדסקטופ */
+.gift-grid {
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
 .machine-card, .gift-card {
   background: var(--bg-white);
   border: 2px solid var(--border-light);
@@ -292,6 +301,7 @@ body {
 .confirm-details div {
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   padding: 10px 0;
   font-size: 1rem;
   border-bottom: 1px solid var(--border-light);
@@ -309,6 +319,7 @@ body {
   margin: 0;
   font-weight: 600;
   color: var(--text-dark);
+  overflow-wrap: anywhere;
 }
 
 /* ===== התאמה למסכים בינוניים (טאבלט) ===== */
@@ -353,4 +364,23 @@ body {
 
   .form-actions { flex-direction: column-reverse; }
   .primary-button, .secondary-button { flex: 1 1 auto; width: 100%; }
+
+  /* מונע זום אוטומטי ב-iOS Safari - שדה קלט מתחת ל-16px גורם להגדלה בפוקוס */
+  .field-group input,
+  .field-group input[type="file"] {
+    font-size: 16px;
+  }
+
+  /* פרטי האישור: תווית מעל הערך, כדי שערכים ארוכים (אימייל) לא יגלשו מהתיבה */
+  .confirm-details {
+    padding: 16px 18px;
+  }
+
+  .confirm-details div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 9px 0;
+    font-size: 0.95rem;
+  }
 }
