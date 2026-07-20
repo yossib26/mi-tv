@@ -15,15 +15,41 @@
       <span class="dot" data-step="2"></span>
     </div>
 
-    <!-- מסך 0: מסך מקדים -->
+    <!-- מסך 0: בחירת מכונת קפה -->
     <section id="screen-0" class="screen active" aria-labelledby="screen0-title">
-      <div class="intro-panel">
-        <img src="c1.jpg" alt="מכונת הקפה C1" class="machine-image" />
-        <h1 id="screen0-title">רכשת את המכונה!</h1>
-        <p>המשך לבחירת מתנה</p>
-        <div class="form-actions">
-          <button type="button" id="start-button" class="primary-button">המשך ←</button>
-        </div>
+      <div class="screen-header">
+        <h1 id="screen0-title">☕ בחרו את מכונת הקפה שלכם</h1>
+        <p>בחרו את הדגם שרכשתם כדי להמשיך</p>
+      </div>
+
+      <div class="machine-grid" id="machine-grid" role="listbox" aria-label="אפשרויות מכונת קפה">
+        <article class="machine-card" data-machine="solo" tabindex="0" role="option" aria-selected="false">
+          <img src="c1.jpg" alt="Caffeo Solo" class="machine-card-image" />
+          <h3>Caffeo Solo</h3>
+          <p>מכונה קומפקטית וקלה לתפעול</p>
+        </article>
+
+        <article class="machine-card" data-machine="purista" tabindex="0" role="option" aria-selected="false">
+          <img src="purista.jpg" alt="Purista" class="machine-card-image" />
+          <h3>Purista</h3>
+          <p>עיצוב מינימליסטי ואינטואיטיבי</p>
+        </article>
+
+        <article class="machine-card" data-machine="baristaTS" tabindex="0" role="option" aria-selected="false">
+          <img src="barista-ts.jpg" alt="Barista T Smart" class="machine-card-image" />
+          <h3>Barista T Smart</h3>
+          <p>טכנולוגיה חכמה וגמישות מרבית</p>
+        </article>
+
+        <article class="machine-card" data-machine="avanza" tabindex="0" role="option" aria-selected="false">
+          <img src="avanza.jpg" alt="Avanza" class="machine-card-image" />
+          <h3>Avanza</h3>
+          <p>פתרון קפה משפחתי איכותי</p>
+        </article>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="start-button" class="primary-button" disabled>המשך ←</button>
       </div>
     </section>
 
@@ -59,6 +85,13 @@
           <span class="error-msg" data-error-for="email"></span>
         </div>
 
+        <div class="field-group field-group--full">
+          <label for="invoice">חשבונית קנייה <span class="optional-tag">(אופציונלי)</span></label>
+          <input type="file" id="invoice" name="invoice" accept="image/*,application/pdf" />
+          <span class="file-hint" id="invoice-hint">תמונה או PDF, עד 5MB</span>
+          <span class="error-msg" data-error-for="invoice"></span>
+        </div>
+
         <div class="form-actions">
           <button type="submit" class="primary-button">המשך לבחירת מתנה ←</button>
         </div>
@@ -74,25 +107,25 @@
 
       <div class="gift-grid" id="gift-carousel" role="listbox" aria-label="אפשרויות מתנה">
         <article class="gift-card" data-gift="lifeP3" tabindex="0" role="option" aria-selected="false">
-          <div class="gift-icon">🎧</div>
+          <img src="gift-lifep3.jpg" alt="Soundcore Life P3" class="gift-card-image" />
           <h3>Soundcore Life P3</h3>
           <p>אוזניות אלחוטיות עם ביטול רעשים אקטיבי</p>
         </article>
 
         <article class="gift-card" data-gift="spaceA40" tabindex="0" role="option" aria-selected="false">
-          <div class="gift-icon">🎧</div>
+          <img src="gift-spacea40.jpg" alt="Soundcore Space A40" class="gift-card-image" />
           <h3>Soundcore Space A40</h3>
           <p>ביטול רעשים אדפטיבי וסוללה ארוכה</p>
         </article>
 
         <article class="gift-card" data-gift="liberty4" tabindex="0" role="option" aria-selected="false">
-          <div class="gift-icon">🎧</div>
+          <img src="gift-liberty4.png" alt="Soundcore Liberty 4" class="gift-card-image" />
           <h3>Soundcore Liberty 4</h3>
           <p>איכות סאונד פרימיום עם ANC</p>
         </article>
 
         <article class="gift-card" data-gift="r50i" tabindex="0" role="option" aria-selected="false">
-          <div class="gift-icon">🎧</div>
+          <img src="gift-r50i.jpg" alt="Soundcore R50i NC" class="gift-card-image" />
           <h3>Soundcore R50i NC</h3>
           <p>אוזניות ספורט עמידות במים עם ANC</p>
         </article>
