@@ -41,11 +41,11 @@ function submitToSheet() {
 }
 
 const giftLabels = {
-  lifeP3: "Soundcore Life P3",
-  spaceA40: "Soundcore Space A40",
-  liberty4: "Soundcore Liberty 4",
-  r50i: "Soundcore R50i NC",
-  spaceOne: "Soundcore Space One",
+  lifeP3: "מיקרוגל Toshiba",
+  spaceA40: "ערכת טעינה לרכב Anker",
+  liberty4: "אוזניות Soundcore אלחוטיות",
+  r50i: "מאוורר עמוד",
+  spaceOne: "מצלמת אבטחה Xiaomi 360°",
 };
 
 const screens = {
