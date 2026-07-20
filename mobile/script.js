@@ -1,4 +1,4 @@
-const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWD4kjIs_ZQGkaPpgMdJp6x0dFLGfajpf-b9K9TKwtKlwFFlmDxPvnPU-IxbabYZo/exec";
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw4UALN0yNpVXjQmX8L0CNlOQj1nsgbbvqckfkZTlGaLWEdsmOUPq5Qmikws8PJ97-x/exec";
 
 const state = {
   firstName: "",
