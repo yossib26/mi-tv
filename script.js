@@ -24,14 +24,14 @@ const invoice = { data: null, name: "", type: "" };
 const INVOICE_MAX_BYTES = 5 * 1024 * 1024;
 
 const machineLabels = {
-  solo: "Gaggia Magenta Prestige 8702/01",
-  purista: "Gaggia Magenta Milk 8701/01",
-  baristaTS: "Gaggia Anima Deluxe 8761/01",
-  avanza: "Gaggia Anima Barista Plus RI8760/02",
-  ciTouch: "Gaggia Anima Prestige OTC SS RI8762/01",
-  latticia: "Gaggia Magenta Plus RI8700/01",
-  varianza: "Gaggia Magenta Prestige EG6603",
-  passione: "Gaggia Anima OTC RI8759/01",
+  solo: "Gaggia Magenta Prestige",
+  purista: "Gaggia Magenta Milk",
+  baristaTS: "Gaggia Anima Deluxe",
+  avanza: "Gaggia Anima Barista Plus",
+  ciTouch: "Gaggia Anima Prestige OTC SS",
+  latticia: "Gaggia Magenta Plus",
+  varianza: "Gaggia Magenta Prestige אפור",
+  passione: "Gaggia Anima OTC",
 };
 
 function submitToSheet() {
