@@ -166,7 +166,7 @@ body {
 /* בורר רשת שיווק */
 .store-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
 
@@ -174,14 +174,22 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 12px 6px;
+  min-height: 64px;
+  padding: 10px 8px;
   background: var(--bg-white);
   border: 1.5px solid var(--border-light);
   border-radius: 8px;
   cursor: pointer;
   font-family: inherit;
   transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.store-logo {
+  max-width: 100%;
+  max-height: 34px;
+  object-fit: contain;
 }
 
 .store-tile:hover {
@@ -228,7 +236,7 @@ body {
 }
 
 @media (max-width: 560px) {
-  .store-grid { grid-template-columns: repeat(3, 1fr); }
+  .store-grid { grid-template-columns: repeat(2, 1fr); }
   .store-name { font-size: 0.72rem; }
 }
 

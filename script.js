@@ -210,7 +210,7 @@ function currentStoreLabel() {
   if (selectedStoreTile.dataset.store === "other") {
     return storeOtherInput.value.trim() || "אחר";
   }
-  return selectedStoreTile.querySelector(".store-name").textContent;
+  return selectedStoreTile.dataset.storeLabel || "";
 }
 
 storeGrid.addEventListener("click", (e) => {
