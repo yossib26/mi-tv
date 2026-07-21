@@ -1,4 +1,4 @@
-const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw4UALN0yNpVXjQmX8L0CNlOQj1nsgbbvqckfkZTlGaLWEdsmOUPq5Qmikws8PJ97-x/exec";
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw5fPKD2ybNbG-slrFgv4OLLAkji-jypSu33kz_gYgE1WWkZaxk9Zo5S3tkHGh2K_Ih/exec";
 
 const state = {
   machine: null,
