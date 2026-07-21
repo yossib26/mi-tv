@@ -47,6 +47,7 @@ function doPost(e) {
     { value: data.email || "", headers: ["אימייל"] },
     { value: data.giftLabel || data.gift || "", headers: ["מתנה", "שם מתנה"] },
     { value: data.machineLabel || data.machine || "", headers: ["נרכשה", "מכונה", "מכונה שנרכשה"] },
+    { value: data.store || "", headers: ["מקום רכישה", "חנות", "רשת שיווק", "היכן נרכש"] },
     { value: invoiceUrl, headers: ["חשבונית"] },
     {
       value: data.machineSku || "",
@@ -105,6 +106,9 @@ function sendEmails_(data, invoiceUrl) {
     ["טלפון", data.phone || ""],
     ["אימייל", data.email || ""],
   ];
+  if (data.store) {
+    rows.push(["מקום רכישה", data.store]);
+  }
   if (invoiceUrl && invoiceUrl.indexOf("ERROR:") !== 0) {
     rows.push(["חשבונית", "התקבלה"]);
   }

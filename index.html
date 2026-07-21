@@ -106,6 +106,37 @@
         </div>
 
         <div class="field-group field-group--full">
+          <label>היכן רכשת את המכונה? <span class="optional-tag">(אופציונלי)</span></label>
+          <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק">
+            <button type="button" class="store-tile" data-store="machsanei-hashmal" role="option" aria-selected="false">
+              <span class="store-icon">🏬</span>
+              <span class="store-name">מחסני חשמל</span>
+            </button>
+            <button type="button" class="store-tile" data-store="shekem-electric" role="option" aria-selected="false">
+              <span class="store-icon">🏬</span>
+              <span class="store-name">שקם אלקטריק</span>
+            </button>
+            <button type="button" class="store-tile" data-store="ksp" role="option" aria-selected="false">
+              <span class="store-icon">🏬</span>
+              <span class="store-name">KSP</span>
+            </button>
+            <button type="button" class="store-tile" data-store="bug" role="option" aria-selected="false">
+              <span class="store-icon">🏬</span>
+              <span class="store-name">באג</span>
+            </button>
+            <button type="button" class="store-tile" data-store="electra" role="option" aria-selected="false">
+              <span class="store-icon">🏬</span>
+              <span class="store-name">אלקטרה</span>
+            </button>
+            <button type="button" class="store-tile" data-store="other" role="option" aria-selected="false">
+              <span class="store-icon">➕</span>
+              <span class="store-name">אחר</span>
+            </button>
+          </div>
+          <input type="text" id="store-other" class="store-other-input" placeholder="שם החנות" hidden />
+        </div>
+
+        <div class="field-group field-group--full">
           <label for="invoice">חשבונית קנייה <span class="optional-tag">(אופציונלי)</span></label>
           <input type="file" id="invoice" name="invoice" accept="image/*,application/pdf" />
           <span class="file-hint" id="invoice-hint">תמונה או PDF, עד 5MB</span>

@@ -163,6 +163,75 @@ body {
   font-size: 0.85rem;
 }
 
+/* בורר רשת שיווק */
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.store-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  background: var(--bg-white);
+  border: 1.5px solid var(--border-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.store-tile:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-accent);
+}
+
+.store-tile.selected {
+  border-color: var(--melitta-red);
+  box-shadow: 0 6px 16px rgba(193, 39, 45, 0.18);
+  background: var(--bg-cream);
+}
+
+.store-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.store-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-brown);
+  text-align: center;
+}
+
+.store-other-input {
+  width: 100%;
+  min-width: 0;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border-light);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.store-other-input:focus {
+  border-color: var(--melitta-red);
+}
+
+@media (max-width: 900px) {
+  .store-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .store-grid { grid-template-columns: repeat(3, 1fr); }
+  .store-name { font-size: 0.72rem; }
+}
+
 .file-hint {
   color: var(--text-muted);
   font-size: 0.8rem;

@@ -7,6 +7,7 @@ const state = {
   lastName: "",
   phone: "",
   email: "",
+  store: "",
   gift: null,
   giftSku: "",
 };
@@ -199,6 +200,45 @@ invoiceInput.addEventListener("change", () => {
   reader.readAsDataURL(file);
 });
 
+/* ---- בורר רשת שיווק ---- */
+const storeGrid = document.getElementById("store-grid");
+const storeOtherInput = document.getElementById("store-other");
+let selectedStoreTile = null;
+
+function currentStoreLabel() {
+  if (!selectedStoreTile) return "";
+  if (selectedStoreTile.dataset.store === "other") {
+    return storeOtherInput.value.trim() || "אחר";
+  }
+  return selectedStoreTile.querySelector(".store-name").textContent;
+}
+
+storeGrid.addEventListener("click", (e) => {
+  const tile = e.target.closest(".store-tile");
+  if (!tile) return;
+
+  storeGrid.querySelectorAll(".store-tile").forEach((t) => {
+    t.classList.remove("selected");
+    t.setAttribute("aria-selected", "false");
+  });
+  tile.classList.add("selected");
+  tile.setAttribute("aria-selected", "true");
+  selectedStoreTile = tile;
+
+  if (tile.dataset.store === "other") {
+    storeOtherInput.hidden = false;
+    storeOtherInput.focus();
+  } else {
+    storeOtherInput.hidden = true;
+    storeOtherInput.value = "";
+  }
+  state.store = currentStoreLabel();
+});
+
+storeOtherInput.addEventListener("input", () => {
+  state.store = currentStoreLabel();
+});
+
 const giftCards = document.querySelectorAll(".gift-card");
 const confirmGiftButton = document.getElementById("confirm-gift-button");
 
@@ -249,6 +289,7 @@ function renderConfirmation() {
     ["מתנה שנבחרה", giftLabels[state.gift]],
   ];
 
+  if (state.store) rows.push(["מקום רכישה", state.store]);
   if (invoice.name) rows.push(["חשבונית", invoice.name]);
 
   rows.forEach(([label, value]) => {
@@ -283,6 +324,14 @@ document.getElementById("restart-button").addEventListener("click", () => {
   invoiceInput.value = "";
   invoiceError.textContent = "";
   invoiceHint.textContent = "תמונה או PDF, עד 5MB";
+
+  storeGrid.querySelectorAll(".store-tile").forEach((t) => {
+    t.classList.remove("selected");
+    t.setAttribute("aria-selected", "false");
+  });
+  selectedStoreTile = null;
+  storeOtherInput.value = "";
+  storeOtherInput.hidden = true;
 
   Object.keys(state).forEach((key) => (state[key] = key === "gift" || key === "machine" ? null : ""));
 
