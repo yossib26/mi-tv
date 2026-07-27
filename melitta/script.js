@@ -1,9 +1,8 @@
 const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw5fPKD2ybNbG-slrFgv4OLLAkji-jypSu33kz_gYgE1WWkZaxk9Zo5S3tkHGh2K_Ih/exec";
 
 // הקטלוג נטען מקובץ ה-CSV שבשורש הפרויקט (מכונות Melitta + מתנה קבועה אחת).
+// עמודת התמונה מכילה נתיב יחסי לעמוד: תמונות מכונה ב-img/ ותמונת המתנה ב-../img/.
 const CSV_URL = "../melitta-gifts.csv";
-// שמות קבצי התמונה ב-CSV נפתרים ביחס לתיקיית התמונות המשותפת.
-const IMG_BASE = "../img/";
 
 const COL = {
   machineId: "מזהה מכונה",
@@ -21,11 +20,11 @@ const COL = {
 // גיבוי: משמש אם טעינת ה-CSV נכשלת, כדי שהאתר לעולם לא יישאר ריק.
 const FALLBACK_CATALOG = {
   machines: [
-    { id: "solo", sku: "M-40001", name: "Melitta Solo", desc: "", image: "m_solo.jpg" },
-    { id: "purista", sku: "M-40002", name: "Melitta Purista", desc: "", image: "m_purista.jpg" },
-    { id: "passione", sku: "M-40003", name: "Melitta Passione OT", desc: "", image: "m_passione.jpg" },
-    { id: "baristaTS", sku: "M-40004", name: "Melitta Barista TS Smart", desc: "", image: "m_baristaTS.jpg" },
-    { id: "ciTouch", sku: "M-40005", name: "Melitta CI Touch", desc: "", image: "m_ciTouch.jpg" },
+    { id: "solo-31000", sku: "31000", name: "Melitta Solo Silver", desc: "", image: "img/31000.jpg" },
+    { id: "solo-31014", sku: "31014", name: "Melitta Solo Black", desc: "", image: "img/31014.jpg" },
+    { id: "solo-31015", sku: "31015", name: "Melitta Solo Pure Silver", desc: "", image: "img/31015.jpg" },
+    { id: "solo-31016", sku: "31016", name: "Melitta Solo Pure Black", desc: "", image: "img/31016.jpg" },
+    { id: "solo-31017", sku: "31017", name: "Melitta Solo Red", desc: "", image: "img/31017.jpg" },
   ],
   gifts: [
     {
@@ -33,7 +32,7 @@ const FALLBACK_CATALOG = {
       sku: "GIFT-001",
       name: "אוזניות Soundcore אלחוטיות",
       desc: "אוזניות TWS עם נרתיק טעינה ותצוגת סוללה",
-      image: "g_51271.jpg",
+      image: "../img/g_51271.jpg",
     },
   ],
   giftsByMachine: null,
@@ -222,7 +221,7 @@ function buildCard(item, cardClass, dataKey, iconChar, showDesc) {
 
   if (item.image) {
     const img = document.createElement("img");
-    img.src = IMG_BASE + item.image;
+    img.src = item.image;
     img.alt = item.name || "";
     img.className = cardClass + "-image";
     img.addEventListener("error", () => {
