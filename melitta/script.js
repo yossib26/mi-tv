@@ -472,6 +472,7 @@ const STORES_FALLBACK = [
   { id: "ksp", label: "KSP", logo: "s_ksp.jpg" },
   { id: "bug", label: "באג", logo: "s_bug.png" },
   { id: "shekem-electric", label: "שקם אלקטריק" },
+  { id: "alm", label: "א.ל.מ" },
   { id: "other", label: "אחר", icon: "➕", other: true },
 ];
 
