@@ -30,9 +30,9 @@ const FALLBACK_CATALOG = {
     {
       id: "gift1",
       sku: "GIFT-001",
-      name: "אוזניות Soundcore אלחוטיות",
+      name: "Soundcore R60i True Wireless",
       desc: "אוזניות TWS עם נרתיק טעינה ותצוגת סוללה",
-      image: "../img/g_51271.jpg",
+      image: "img/g_51336.jpg",
     },
   ],
   giftsByMachine: null,
