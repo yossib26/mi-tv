@@ -464,6 +464,67 @@ storeOtherInput.addEventListener("input", () => {
   state.store = currentStoreLabel();
 });
 
+/* ---- טעינת רשימת החנויות מ-JSON (עם גיבוי מובנה) ---- */
+const STORES_URL = "../stores.json";
+const STORE_IMG_BASE = "../img/";
+const STORES_FALLBACK = [
+  { id: "machsanei-hashmal", label: "מחסני חשמל", logo: "s_machsanei.png" },
+  { id: "ksp", label: "KSP", logo: "s_ksp.jpg" },
+  { id: "bug", label: "באג", logo: "s_bug.png" },
+  { id: "shekem-electric", label: "שקם אלקטריק" },
+  { id: "other", label: "אחר", icon: "➕", other: true },
+];
+
+function renderStores(list) {
+  storeGrid.innerHTML = "";
+  list.forEach((s) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "store-tile" + (s.logo ? "" : " store-tile--text");
+    btn.dataset.store = s.id;
+    btn.dataset.storeLabel = s.label;
+    btn.setAttribute("role", "option");
+    btn.setAttribute("aria-selected", "false");
+    btn.setAttribute("aria-label", s.label);
+
+    if (s.logo) {
+      const img = document.createElement("img");
+      img.src = STORE_IMG_BASE + s.logo;
+      img.alt = s.label;
+      img.className = "store-logo";
+      btn.appendChild(img);
+    } else {
+      if (s.icon) {
+        const icon = document.createElement("span");
+        icon.className = "store-icon";
+        icon.textContent = s.icon;
+        btn.appendChild(icon);
+      }
+      const name = document.createElement("span");
+      name.className = "store-name";
+      name.textContent = s.label;
+      btn.appendChild(name);
+    }
+
+    storeGrid.appendChild(btn);
+  });
+}
+
+async function loadStores() {
+  let list = STORES_FALLBACK;
+  try {
+    const res = await fetch(STORES_URL);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    if (Array.isArray(data.stores) && data.stores.length) list = data.stores;
+  } catch (err) {
+    console.warn("stores load failed - using fallback:", err);
+  }
+  renderStores(list);
+}
+
+loadStores();
+
 /* ============ מסך 2: המתנה הקבועה ============ */
 
 const giftGrid = document.getElementById("gift-carousel");

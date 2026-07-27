@@ -1,0 +1,9 @@
+{
+  "stores": [
+    { "id": "machsanei-hashmal", "label": "מחסני חשמל", "logo": "s_machsanei.png" },
+    { "id": "ksp", "label": "KSP", "logo": "s_ksp.jpg" },
+    { "id": "bug", "label": "באג", "logo": "s_bug.png" },
+    { "id": "shekem-electric", "label": "שקם אלקטריק" },
+    { "id": "other", "label": "אחר", "icon": "➕", "other": true }
+  ]
+}
