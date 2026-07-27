@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="1050"
+   height="320"
+   viewBox="0 0 1050 320"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   inkscape:version="0.48.1 "
+   sodipodi:docname="Logo di Gaggia.svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="837"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="0.33186906"
+     inkscape:cx="1319.712"
+     inkscape:cy="1113.6922"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata4">
+Creato con Inkscape da Blackcat, 2019
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <g
+     transform="matrix(0.1,0,0,-0.1,0.30132366,475.12715)"
+     id="g6"
+     style="fill:#000000;stroke:none">
+    <path
+       d="M 1205,4721 C 901,4631 597,4408 424,4149 280,3932 213,3711 203,3420 c -12,-374 86,-668 312,-939 128,-154 362,-326 549,-403 l 79,-33 -571,-3 -572,-2 0,-175 0,-175 5240,0 5240,0 0,175 0,175 -99,0 -99,0 -21,77 c -11,43 -173,637 -358,1321 l -337,1243 -120,-3 -120,-3 -356,-1315 -357,-1315 -271,-3 -272,-2 0,1320 0,1320 -170,0 -170,0 0,-1320 0,-1320 -315,0 -315,0 0,665 0,665 -175,0 -175,0 0,-465 c 0,-256 -3,-465 -7,-465 -3,0 -49,29 -102,64 -174,115 -320,290 -390,467 -56,140 -65,196 -66,399 0,160 3,197 23,274 27,107 95,254 156,340 111,155 315,308 509,381 l 47,18 0,178 c 0,126 -3,179 -11,179 -27,0 -224,-72 -296,-109 -202,-101 -439,-304 -550,-471 -143,-213 -218,-449 -230,-720 -22,-495 177,-910 572,-1196 50,-35 153,-96 229,-134 l 140,-70 -757,0 -757,0 0,665 0,665 -175,0 -175,0 0,-466 0,-466 -47,27 c -79,45 -188,132 -252,201 -167,178 -254,388 -268,644 -25,485 224,866 695,1058 l 52,21 -2,173 -3,173 -34,-3 c -19,-2 -67,-15 -105,-29 -356,-127 -672,-403 -819,-715 -46,-97 -93,-247 -114,-361 -23,-129 -23,-390 2,-517 84,-445 351,-787 780,-1001 l 140,-69 -629,2 -629,3 -357,1315 -356,1315 -121,3 -121,3 -7,-28 c -3,-15 -164,-607 -356,-1316 -192,-708 -349,-1290 -349,-1292 0,-3 -124,-5 -275,-5 l -275,0 0,665 0,665 -170,0 -170,0 0,-465 c 0,-256 -4,-465 -8,-465 -14,0 -142,87 -214,146 -141,116 -270,318 -319,499 -32,121 -38,385 -11,515 66,319 265,568 577,723 39,19 87,40 108,46 l 37,13 0,179 c 0,137 -3,179 -12,178 -7,0 -40,-8 -73,-18 z M 3047,3024 c -2,-3 -96,-3 -208,-2 l -205,3 98,360 c 53,198 100,371 104,385 5,18 35,-80 111,-359 57,-211 102,-385 100,-387 z m 6508,371 101,-370 -205,-3 c -112,-1 -206,-1 -208,2 -2,2 42,175 99,385 57,210 105,375 108,369 2,-7 50,-179 105,-383 z M 3169,2593 c 12,-43 50,-184 85,-313 l 64,-235 -471,-3 c -258,-1 -472,0 -474,2 -3,3 146,567 162,614 3,9 74,12 309,12 l 304,0 21,-77 z m 6667,-233 c 46,-168 84,-308 84,-312 0,-5 -214,-8 -476,-8 -471,0 -475,0 -469,20 10,31 165,601 165,606 0,2 138,3 306,2 l 307,-3 83,-305 z"
+       id="path8"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

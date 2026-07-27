@@ -54,8 +54,8 @@ body {
   height: auto;
 }
 
-/* לוגו Melitta נוסף בכותרת - ממודד לפי גובה כדי לשבת לצד לוגו המילטון */
-.brand-header .brand-logo--melitta {
+/* לוגו מותג משני בכותרת - ממודד לפי גובה כדי לשבת לצד לוגו המילטון */
+.brand-header .brand-logo--secondary {
   width: auto;
   height: 40px;
 }
@@ -474,7 +474,7 @@ body {
 
   .brand-header { height: 49px; gap: 14px; }
   .brand-logo { width: 133px; }
-  .brand-header .brand-logo--melitta { height: 30px; }
+  .brand-header .brand-logo--secondary { height: 30px; }
 
   .screen-header { margin-bottom: 24px; }
   .screen-header h1 { font-size: 1.35rem; }
