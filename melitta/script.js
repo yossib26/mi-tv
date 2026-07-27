@@ -29,7 +29,7 @@ const FALLBACK_CATALOG = {
   gifts: [
     {
       id: "gift1",
-      sku: "GIFT-001",
+      sku: "51336",
       name: "Soundcore R60i True Wireless",
       desc: "אוזניות TWS עם נרתיק טעינה ותצוגת סוללה",
       image: "img/g_51336.jpg",
