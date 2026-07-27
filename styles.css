@@ -170,16 +170,17 @@ body {
   font-size: 0.85rem;
 }
 
-/* בלוק רשת שיווק במסך בחירת המכונה - מוצג רק לאחר בחירת מכונה */
+/* בלוק רשת שיווק במסך בחירת המכונה.
+   ברירת המחדל מוצג (עמידות): ה-JS מסתיר בטעינה עם is-hidden וחושף בבחירת מכונה.
+   כך שאם קובץ אחד מוגש מהמטמון בגרסה ישנה - הבורר עדיין יופיע ולא ייעלם. */
 .store-section {
   max-width: 820px;
   width: 100%;
   margin: 4px auto 8px;
-  display: none;
 }
 
-.store-section.is-visible {
-  display: flex;
+.store-section.is-hidden {
+  display: none;
 }
 
 /* בורר רשת שיווק */
