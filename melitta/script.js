@@ -296,6 +296,7 @@ function goToScreen(key) {
 
 const machineGrid = document.getElementById("machine-grid");
 const startButton = document.getElementById("start-button");
+const storeSection = document.querySelector(".store-section");
 
 machineGrid.addEventListener("click", (e) => {
   const card = e.target.closest(".machine-card");
@@ -322,6 +323,7 @@ function selectMachine(card) {
 
   state.machine = card.dataset.machine;
   startButton.disabled = false;
+  if (storeSection) storeSection.classList.add("is-visible");
 }
 
 startButton.addEventListener("click", () => {
@@ -535,6 +537,7 @@ document.getElementById("restart-button").addEventListener("click", () => {
   selectedStoreTile = null;
   storeOtherInput.value = "";
   storeOtherInput.hidden = true;
+  if (storeSection) storeSection.classList.remove("is-visible");
 
   Object.keys(state).forEach((key) => (state[key] = key === "gift" || key === "machine" ? null : ""));
 

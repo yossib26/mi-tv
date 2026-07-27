@@ -29,6 +29,29 @@
 
       <div class="machine-grid machine-grid--row" id="machine-grid" role="listbox" aria-label="אפשרויות מכונת קפה"></div>
 
+      <div class="field-group field-group--full store-section">
+        <label>היכן רכשת את המכונה? <span class="optional-tag">(אופציונלי)</span></label>
+        <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק">
+          <button type="button" class="store-tile" data-store="machsanei-hashmal" data-store-label="מחסני חשמל" role="option" aria-selected="false" aria-label="מחסני חשמל">
+            <img src="../img/s_machsanei.png" alt="מחסני חשמל" class="store-logo" />
+          </button>
+          <button type="button" class="store-tile" data-store="ksp" data-store-label="KSP" role="option" aria-selected="false" aria-label="KSP">
+            <img src="../img/s_ksp.jpg" alt="KSP" class="store-logo" />
+          </button>
+          <button type="button" class="store-tile" data-store="bug" data-store-label="באג" role="option" aria-selected="false" aria-label="באג">
+            <img src="../img/s_bug.png" alt="באג" class="store-logo" />
+          </button>
+          <button type="button" class="store-tile store-tile--text" data-store="shekem-electric" data-store-label="שקם אלקטריק" role="option" aria-selected="false" aria-label="שקם אלקטריק">
+            <span class="store-name">שקם אלקטריק</span>
+          </button>
+          <button type="button" class="store-tile store-tile--text" data-store="other" data-store-label="אחר" role="option" aria-selected="false" aria-label="אחר">
+            <span class="store-icon">➕</span>
+            <span class="store-name">אחר</span>
+          </button>
+        </div>
+        <input type="text" id="store-other" class="store-other-input" placeholder="שם החנות" hidden />
+      </div>
+
       <div class="form-actions">
         <button type="button" id="start-button" class="primary-button" disabled>המשך ←</button>
       </div>
@@ -64,29 +87,6 @@
           <label for="email">אימייל</label>
           <input type="email" id="email" name="email" required autocomplete="email" placeholder="name@example.com" />
           <span class="error-msg" data-error-for="email"></span>
-        </div>
-
-        <div class="field-group field-group--full">
-          <label>היכן רכשת את המכונה? <span class="optional-tag">(אופציונלי)</span></label>
-          <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק">
-            <button type="button" class="store-tile" data-store="machsanei-hashmal" data-store-label="מחסני חשמל" role="option" aria-selected="false" aria-label="מחסני חשמל">
-              <img src="../img/s_machsanei.png" alt="מחסני חשמל" class="store-logo" />
-            </button>
-            <button type="button" class="store-tile" data-store="ksp" data-store-label="KSP" role="option" aria-selected="false" aria-label="KSP">
-              <img src="../img/s_ksp.jpg" alt="KSP" class="store-logo" />
-            </button>
-            <button type="button" class="store-tile" data-store="bug" data-store-label="באג" role="option" aria-selected="false" aria-label="באג">
-              <img src="../img/s_bug.png" alt="באג" class="store-logo" />
-            </button>
-            <button type="button" class="store-tile store-tile--text" data-store="shekem-electric" data-store-label="שקם אלקטריק" role="option" aria-selected="false" aria-label="שקם אלקטריק">
-              <span class="store-name">שקם אלקטריק</span>
-            </button>
-            <button type="button" class="store-tile store-tile--text" data-store="other" data-store-label="אחר" role="option" aria-selected="false" aria-label="אחר">
-              <span class="store-icon">➕</span>
-              <span class="store-name">אחר</span>
-            </button>
-          </div>
-          <input type="text" id="store-other" class="store-other-input" placeholder="שם החנות" hidden />
         </div>
 
         <div class="field-group field-group--full">

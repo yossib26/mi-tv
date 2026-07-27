@@ -170,6 +170,18 @@ body {
   font-size: 0.85rem;
 }
 
+/* בלוק רשת שיווק במסך בחירת המכונה - מוצג רק לאחר בחירת מכונה */
+.store-section {
+  max-width: 820px;
+  width: 100%;
+  margin: 4px auto 8px;
+  display: none;
+}
+
+.store-section.is-visible {
+  display: flex;
+}
+
 /* בורר רשת שיווק */
 .store-grid {
   display: grid;
