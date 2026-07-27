@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melitta Club - הרשמה ובחירת מתנה</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <header class="brand-header">
+      <img src="../logo.png" alt="קבוצת Hemilton" class="brand-logo" />
+    </header>
+
+    <div class="progress-dots" aria-hidden="true">
+      <span class="dot active" data-step="0"></span>
+      <span class="dot" data-step="1"></span>
+      <span class="dot" data-step="2"></span>
+    </div>
+
+    <!-- מסך 0: בחירת מכונת קפה -->
+    <section id="screen-0" class="screen active" aria-labelledby="screen0-title">
+      <div class="screen-header">
+        <h1 id="screen0-title">☕ בחרו את מכונת ה-Melitta שלכם</h1>
+        <p>בחרו את הדגם שרכשתם כדי להמשיך</p>
+      </div>
+
+      <div class="machine-grid" id="machine-grid" role="listbox" aria-label="אפשרויות מכונת קפה"></div>
+
+      <div class="form-actions">
+        <button type="button" id="start-button" class="primary-button" disabled>המשך ←</button>
+      </div>
+    </section>
+
+    <!-- מסך 1: פרטים אישיים -->
+    <section id="screen-1" class="screen" aria-labelledby="screen1-title">
+      <div class="screen-header">
+        <h1 id="screen1-title">☕ מצטרפים למועדון ה-Melitta</h1>
+        <p>מלאו את הפרטים שלכם כדי להמשיך למתנה</p>
+      </div>
+
+      <form id="details-form" class="details-form" novalidate>
+        <div class="field-group">
+          <label for="firstName">שם פרטי</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name" />
+          <span class="error-msg" data-error-for="firstName"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="lastName">שם משפחה</label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name" />
+          <span class="error-msg" data-error-for="lastName"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="phone">טלפון</label>
+          <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="05X-XXXXXXX" />
+          <span class="error-msg" data-error-for="phone"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="email">אימייל</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="name@example.com" />
+          <span class="error-msg" data-error-for="email"></span>
+        </div>
+
+        <div class="field-group field-group--full">
+          <label>היכן רכשת את המכונה? <span class="optional-tag">(אופציונלי)</span></label>
+          <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק">
+            <button type="button" class="store-tile" data-store="machsanei-hashmal" data-store-label="מחסני חשמל" role="option" aria-selected="false" aria-label="מחסני חשמל">
+              <img src="../img/s_machsanei.png" alt="מחסני חשמל" class="store-logo" />
+            </button>
+            <button type="button" class="store-tile" data-store="ksp" data-store-label="KSP" role="option" aria-selected="false" aria-label="KSP">
+              <img src="../img/s_ksp.jpg" alt="KSP" class="store-logo" />
+            </button>
+            <button type="button" class="store-tile" data-store="bug" data-store-label="באג" role="option" aria-selected="false" aria-label="באג">
+              <img src="../img/s_bug.png" alt="באג" class="store-logo" />
+            </button>
+            <button type="button" class="store-tile store-tile--text" data-store="shekem-electric" data-store-label="שקם אלקטריק" role="option" aria-selected="false" aria-label="שקם אלקטריק">
+              <span class="store-name">שקם אלקטריק</span>
+            </button>
+            <button type="button" class="store-tile store-tile--text" data-store="other" data-store-label="אחר" role="option" aria-selected="false" aria-label="אחר">
+              <span class="store-icon">➕</span>
+              <span class="store-name">אחר</span>
+            </button>
+          </div>
+          <input type="text" id="store-other" class="store-other-input" placeholder="שם החנות" hidden />
+        </div>
+
+        <div class="field-group field-group--full">
+          <label for="invoice">חשבונית קנייה <span class="optional-tag">(אופציונלי)</span></label>
+          <input type="file" id="invoice" name="invoice" accept="image/*,application/pdf" />
+          <span class="file-hint" id="invoice-hint">תמונה או PDF, עד 5MB</span>
+          <span class="error-msg" data-error-for="invoice"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button">המשך למתנה ←</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- מסך 2: המתנה הקבועה -->
+    <section id="screen-2" class="screen" aria-labelledby="screen2-title">
+      <div class="screen-header">
+        <h1 id="screen2-title">🎁 המתנה שלכם</h1>
+        <p>קיבלתם את המתנה הבאה במתנה על רכישת המכונה</p>
+      </div>
+
+      <div class="gift-grid gift-grid--single" id="gift-carousel" role="list" aria-label="המתנה שלכם"></div>
+
+      <div class="form-actions">
+        <button type="button" id="back-button" class="secondary-button">→ חזרה</button>
+        <button type="button" id="confirm-gift-button" class="primary-button" disabled>אישור והרשמה</button>
+      </div>
+    </section>
+
+    <!-- מסך אישור -->
+    <section id="screen-confirm" class="screen" aria-labelledby="confirm-title">
+      <div class="confirm-panel">
+        <div class="confirm-icon">✅</div>
+        <h1 id="confirm-title">תודה, ההרשמה הושלמה!</h1>
+        <p>פרטי ההרשמה שלכם:</p>
+        <dl class="confirm-details" id="confirm-details"></dl>
+        <button type="button" id="restart-button" class="secondary-button">הרשמה חדשה</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
