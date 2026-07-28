@@ -101,6 +101,7 @@ function selectMachine(card) {
   state.machine = card.dataset.machine;
   state.machineSku = skuFromCard(card);
   startButton.disabled = false;
+  if (storeSection) storeSection.classList.remove("is-hidden");
 }
 
 startButton.addEventListener("click", () => {
@@ -203,7 +204,11 @@ invoiceInput.addEventListener("change", () => {
 /* ---- בורר רשת שיווק ---- */
 const storeGrid = document.getElementById("store-grid");
 const storeOtherInput = document.getElementById("store-other");
+const storeSection = document.querySelector(".store-section");
 let selectedStoreTile = null;
+
+// מוסתר בטעינה, ומתגלה רק לאחר בחירת מכונה.
+if (storeSection) storeSection.classList.add("is-hidden");
 
 function currentStoreLabel() {
   if (!selectedStoreTile) return "";
@@ -394,6 +399,7 @@ document.getElementById("restart-button").addEventListener("click", () => {
   selectedStoreTile = null;
   storeOtherInput.value = "";
   storeOtherInput.hidden = true;
+  if (storeSection) storeSection.classList.add("is-hidden");
 
   Object.keys(state).forEach((key) => (state[key] = key === "gift" || key === "machine" ? null : ""));
 
