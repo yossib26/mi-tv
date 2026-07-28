@@ -158,6 +158,31 @@ document.getElementById("add-btn").addEventListener("click", () => {
 
 document.getElementById("reload-btn").addEventListener("click", loadStores);
 
+// טעינת קובץ stores.json מהמחשב אל הממשק
+const fileInput = document.getElementById("file-input");
+document.getElementById("upload-btn").addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(String(reader.result));
+      if (!Array.isArray(data.stores) || !data.stores.length) {
+        throw new Error('חסר מערך "stores" תקין');
+      }
+      stores = data.stores.map(normalizeStore);
+      renderAll();
+      setStatus("✓ נטען הקובץ " + file.name + " (" + stores.length + " חנויות).");
+    } catch (err) {
+      setStatus("⚠️ קובץ לא תקין: " + err.message);
+    }
+  };
+  reader.onerror = () => setStatus("⚠️ שגיאה בקריאת הקובץ.");
+  reader.readAsText(file);
+  fileInput.value = "";
+});
+
 /* ---------- תצוגה מקדימה ---------- */
 
 function renderPreview() {
