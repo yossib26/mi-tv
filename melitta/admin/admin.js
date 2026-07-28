@@ -20,6 +20,12 @@ const previewEl = document.getElementById("preview");
 const jsonOut = document.getElementById("json-out");
 const statusEl = document.getElementById("status");
 
+// חיווט מוגן: אם אלמנט חסר (למשל חוסר סנכרון מטמון HTML/JS) - לא זורק שגיאה שעוצרת את כל הסקריפט.
+function on(id, event, handler) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(event, handler);
+}
+
 /* ---------- טעינה ---------- */
 
 async function loadStores() {
@@ -151,37 +157,39 @@ function remove(i) {
   onChange();
 }
 
-document.getElementById("add-btn").addEventListener("click", () => {
+on("add-btn", "click", () => {
   stores.push(normalizeStore({ id: "", label: "", logo: "" }));
   onChange();
 });
 
-document.getElementById("reload-btn").addEventListener("click", loadStores);
+on("reload-btn", "click", loadStores);
 
 // טעינת קובץ stores.json מהמחשב אל הממשק
 const fileInput = document.getElementById("file-input");
-document.getElementById("upload-btn").addEventListener("click", () => fileInput.click());
-fileInput.addEventListener("change", () => {
-  const file = fileInput.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const data = JSON.parse(String(reader.result));
-      if (!Array.isArray(data.stores) || !data.stores.length) {
-        throw new Error('חסר מערך "stores" תקין');
+on("upload-btn", "click", () => fileInput && fileInput.click());
+if (fileInput) {
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(String(reader.result));
+        if (!Array.isArray(data.stores) || !data.stores.length) {
+          throw new Error('חסר מערך "stores" תקין');
+        }
+        stores = data.stores.map(normalizeStore);
+        renderAll();
+        setStatus("✓ נטען הקובץ " + file.name + " (" + stores.length + " חנויות).");
+      } catch (err) {
+        setStatus("⚠️ קובץ לא תקין: " + err.message);
       }
-      stores = data.stores.map(normalizeStore);
-      renderAll();
-      setStatus("✓ נטען הקובץ " + file.name + " (" + stores.length + " חנויות).");
-    } catch (err) {
-      setStatus("⚠️ קובץ לא תקין: " + err.message);
-    }
-  };
-  reader.onerror = () => setStatus("⚠️ שגיאה בקריאת הקובץ.");
-  reader.readAsText(file);
-  fileInput.value = "";
-});
+    };
+    reader.onerror = () => setStatus("⚠️ שגיאה בקריאת הקובץ.");
+    reader.readAsText(file);
+    fileInput.value = "";
+  });
+}
 
 /* ---------- תצוגה מקדימה ---------- */
 
@@ -265,7 +273,7 @@ function setStatus(msg) {
 
 /* ---------- הורדה והעתקה ---------- */
 
-document.getElementById("download-btn").addEventListener("click", () => {
+on("download-btn", "click", () => {
   const invalid = stores.filter((s) => !s.id || !s.label);
   if (invalid.length) {
     setStatus("⚠️ לכל חנות חייבים להיות שם ומזהה (id). תקנו לפני ההורדה.");
@@ -288,7 +296,7 @@ document.getElementById("download-btn").addEventListener("click", () => {
   setStatus("✓ הקובץ הורד. החליפו איתו את stores.json בשורש הפרויקט.");
 });
 
-document.getElementById("copy-btn").addEventListener("click", async () => {
+on("copy-btn", "click", async () => {
   try {
     await navigator.clipboard.writeText(buildJson());
     setStatus("✓ הועתק ללוח.");
