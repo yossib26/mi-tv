@@ -11,6 +11,8 @@ const state = {
   gift: null,
   giftSku: "",
   giftCardAmount: "",
+  marketing: "",
+  terms: "",
 };
 
 // מק"ט המוצר נגזר משם קובץ התמונה: img/c_81313.jpg -> 81313
@@ -164,6 +166,7 @@ const validators = {
   lastName: (v) => v.trim().length >= 2,
   phone: (v) => /^0\d{1,2}-?\d{7}$/.test(v.trim().replace(/\s/g, "")),
   email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+  terms: (v) => v === true, // אישור התקנון - שדה חובה
 };
 
 const errorText = {
@@ -171,14 +174,20 @@ const errorText = {
   lastName: "יש להזין שם משפחה תקין",
   phone: "יש להזין מספר טלפון תקין",
   email: "יש להזין כתובת אימייל תקינה",
+  terms: "יש לאשר את התקנון כדי להמשיך",
 };
+
+const TEXT_FIELDS = ["firstName", "lastName", "phone", "email"];
 
 function validateField(name) {
   const input = detailsForm.elements[name];
   const errorEl = detailsForm.querySelector(`[data-error-for="${name}"]`);
-  const isValid = validators[name](input.value);
+  const isCheckbox = input.type === "checkbox";
+  const isValid = validators[name](isCheckbox ? input.checked : input.value);
 
-  input.classList.toggle("invalid", !isValid);
+  // בתיבת סימון מסמנים את השורה כולה - מסגרת על תיבה של 18px לא נראית
+  const target = isCheckbox ? input.closest(".consent-row") : input;
+  if (target) target.classList.toggle("invalid", !isValid);
   errorEl.textContent = isValid ? "" : errorText[name];
 
   return isValid;
@@ -187,14 +196,18 @@ function validateField(name) {
 detailsForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const fields = ["firstName", "lastName", "phone", "email"];
+  const fields = TEXT_FIELDS.concat("terms");
+  // map ולא some - כדי שכל השגיאות יוצגו יחד ולא רק הראשונה
   const allValid = fields.map(validateField).every(Boolean);
 
   if (!allValid) return;
 
-  fields.forEach((name) => {
+  TEXT_FIELDS.forEach((name) => {
     state[name] = detailsForm.elements[name].value.trim();
   });
+
+  state.marketing = detailsForm.elements.marketing.checked ? "כן" : "לא";
+  state.terms = "כן";
 
   // שלב 2 הוא הסופי - שליחה ומעבר ישירות למסך האישור.
   renderConfirmation();
@@ -206,11 +219,14 @@ document.getElementById("back-button").addEventListener("click", () => {
   goToScreen(0);
 });
 
-["firstName", "lastName", "phone", "email"].forEach((name) => {
+TEXT_FIELDS.forEach((name) => {
   detailsForm.elements[name].addEventListener("blur", () => {
     if (detailsForm.elements[name].value.trim()) validateField(name);
   });
 });
+
+// מנקה את שגיאת התקנון ברגע שסומן, בלי להמתין לשליחה נוספת.
+detailsForm.elements.terms.addEventListener("change", () => validateField("terms"));
 
 const invoiceInput = document.getElementById("invoice");
 const invoiceError = detailsForm.querySelector('[data-error-for="invoice"]');
@@ -412,6 +428,7 @@ function renderConfirmation() {
   }
   if (state.store) rows.push(["מקום רכישה", state.store]);
   if (invoice.name) rows.push(["חשבונית", invoice.name]);
+  rows.push(["דיוור וחומר שיווקי", state.marketing]);
 
   rows.forEach(([label, value]) => {
     const row = document.createElement("div");
@@ -421,11 +438,14 @@ function renderConfirmation() {
 }
 
 document.getElementById("restart-button").addEventListener("click", () => {
-  detailsForm.reset();
-  ["firstName", "lastName", "phone", "email"].forEach((name) => {
+  detailsForm.reset(); // מנקה גם את תיבות הסימון
+  TEXT_FIELDS.forEach((name) => {
     detailsForm.elements[name].classList.remove("invalid");
     detailsForm.querySelector(`[data-error-for="${name}"]`).textContent = "";
   });
+
+  document.getElementById("terms-row").classList.remove("invalid");
+  detailsForm.querySelector('[data-error-for="terms"]').textContent = "";
 
   giftCardAmountEl.textContent = "";
   giftCardCaptionEl.textContent = "";

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Xiaomi TV Club - הרשמה וקבלת מתנה</title>
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
   <div class="app-shell">
@@ -114,6 +114,19 @@
           <span class="error-msg" data-error-for="invoice"></span>
         </div>
 
+        <div class="field-group field-group--full consent-group">
+          <label class="consent-row">
+            <input type="checkbox" id="marketing" name="marketing" />
+            <span>אני מאשר/ת קבלת דיוור וחומר שיווקי</span>
+          </label>
+
+          <label class="consent-row" id="terms-row">
+            <input type="checkbox" id="terms" name="terms" required />
+            <span>קראתי ואני מאשר/ת את התקנון <span class="required-mark" aria-hidden="true">*</span></span>
+          </label>
+          <span class="error-msg" data-error-for="terms"></span>
+        </div>
+
         <div class="form-actions">
           <button type="button" id="back-button" class="secondary-button">→ חזרה</button>
           <button type="submit" class="primary-button">אישור והרשמה</button>
@@ -134,6 +147,6 @@
 
   </div>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
