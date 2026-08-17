@@ -203,6 +203,14 @@ body {
   font-weight: 700;
 }
 
+.consent-link {
+  color: var(--melitta-red);
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
+
+.consent-link:hover { color: var(--melitta-red-dark); }
+
 /* הודגשה כשלא סומן התקנון */
 .consent-row.invalid {
   color: var(--melitta-red);

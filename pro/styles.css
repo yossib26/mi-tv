@@ -514,6 +514,19 @@ body {
 
 .req { color: var(--danger); font-weight: 700; }
 
+.consent-link {
+  color: var(--accent-dark);
+  font-weight: 600;
+  text-underline-offset: 2px;
+}
+
+.consent-link:hover { color: var(--accent); }
+
+.consent-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.sitefoot .consent-link { color: var(--ink-2); }
+.sitefoot .consent-link:hover { color: var(--accent-dark); }
+
 .consent.is-invalid { color: var(--danger); }
 
 .consent.is-invalid input[type="checkbox"] {

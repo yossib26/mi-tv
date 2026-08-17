@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=1" />
+  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
 
@@ -187,7 +187,9 @@
 
           <label class="consent" id="terms-row">
             <input type="checkbox" id="terms" name="terms" required />
-            <span class="consent-text">קראתי ואני מאשר/ת את תקנון המועדון <span class="req" aria-hidden="true">*</span></span>
+            <span class="consent-text">קראתי ואני מאשר/ת את
+              <a href="https://www.mi-il.co.il/terms" class="consent-link" target="_blank" rel="noopener noreferrer">תקנון המועדון</a>
+              <span class="req" aria-hidden="true">*</span></span>
           </label>
           <span class="field-error" data-error-for="terms"></span>
         </div>
@@ -220,10 +222,12 @@
   <footer class="sitefoot">
     <div class="shell sitefoot-inner">
       <p>קבוצת Hemilton — היבואן הרשמי של Xiaomi בישראל</p>
-      <p class="sitefoot-fine">ההרשמה כפופה לתקנון המועדון. המתנה מוגבלת למכשיר אחד לכל הרשמה.</p>
+      <p class="sitefoot-fine">ההרשמה כפופה
+        <a href="https://www.mi-il.co.il/terms" class="consent-link" target="_blank" rel="noopener noreferrer">לתקנון המועדון</a>.
+        המתנה מוגבלת למכשיר אחד לכל הרשמה.</p>
     </div>
   </footer>
 
-  <script src="script.js?v=1"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>
