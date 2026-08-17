@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מועדון הלקוחות Xiaomi | הרשמה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brands">
+        <!-- קובץ הלוגו ריבועי עם שוליים לבנים מובנים - העטיפה חותכת אותם -->
+        <span class="brand-crop">
+          <img src="../logo.png" alt="קבוצת Hemilton" class="brand brand--hemilton" />
+        </span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <img src="../img/xiaomi-logo.svg" alt="Xiaomi" class="brand brand--xiaomi" />
+      </div>
+      <p class="topbar-label">מועדון הלקוחות</p>
+    </div>
+  </header>
+
+  <main class="shell main">
+
+    <nav class="stepper" aria-label="שלבי ההרשמה">
+      <ol class="stepper-list">
+        <li class="step is-current" data-step="0">
+          <span class="step-index">1</span>
+          <span class="step-name">בחירת דגם</span>
+        </li>
+        <li class="step" data-step="1">
+          <span class="step-index">2</span>
+          <span class="step-name">מקום הרכישה</span>
+        </li>
+        <li class="step" data-step="2">
+          <span class="step-index">3</span>
+          <span class="step-name">פרטי הרשמה</span>
+        </li>
+      </ol>
+      <div class="stepper-track" aria-hidden="true"><span class="stepper-fill" id="stepper-fill"></span></div>
+    </nav>
+
+    <!-- שלב 1: בחירת דגם -->
+    <section id="screen-0" class="panel screen is-active" aria-labelledby="screen0-title">
+      <div class="panel-head">
+        <h1 id="screen0-title">בחירת דגם הטלוויזיה</h1>
+        <p>סמנו את הדגם שרכשתם. מתנת ההצטרפות תיקבע בהתאם לדגם.</p>
+      </div>
+
+      <div class="panel-body">
+        <div class="model-grid" id="machine-grid" role="listbox" aria-label="דגמי טלוויזיה">
+
+          <article class="model" data-machine="tvMini55" tabindex="0" role="option" aria-selected="false">
+            <span class="model-mark" aria-hidden="true"></span>
+            <img src="../img/c_81313.jpg" alt="Xiaomi TV S Mini LED 55 אינץ'" class="model-image" />
+            <div class="model-text">
+              <h2 class="model-name">TV S Mini LED 55”</h2>
+              <p class="model-spec">QD-Mini LED 4K · 308 אזורי עמעום · 120Hz</p>
+            </div>
+          </article>
+
+          <article class="model" data-machine="tvMini65" tabindex="0" role="option" aria-selected="false">
+            <span class="model-mark" aria-hidden="true"></span>
+            <img src="../img/c_81314.jpg" alt="Xiaomi TV S Mini LED 65 אינץ'" class="model-image" />
+            <div class="model-text">
+              <h2 class="model-name">TV S Mini LED 65”</h2>
+              <p class="model-spec">QD-Mini LED 4K · 384 אזורי עמעום · 120Hz</p>
+            </div>
+          </article>
+
+          <article class="model" data-machine="tvMini75" tabindex="0" role="option" aria-selected="false">
+            <span class="model-mark" aria-hidden="true"></span>
+            <img src="../img/c_81315.jpg" alt="Xiaomi TV S Mini LED 75 אינץ'" class="model-image" />
+            <div class="model-text">
+              <h2 class="model-name">TV S Mini LED 75”</h2>
+              <p class="model-spec">QD-Mini LED 4K · 512 אזורי עמעום · 120Hz</p>
+            </div>
+          </article>
+
+          <article class="model" data-machine="tvMini85" tabindex="0" role="option" aria-selected="false">
+            <span class="model-mark" aria-hidden="true"></span>
+            <img src="../img/c_81318.jpg" alt="Xiaomi TV S Mini LED 85 אינץ'" class="model-image" />
+            <div class="model-text">
+              <h2 class="model-name">TV S Mini LED 85”</h2>
+              <p class="model-spec">QD-Mini LED 4K · 640 אזורי עמעום · 144Hz</p>
+            </div>
+          </article>
+
+          <article class="model" data-machine="tvMini98" tabindex="0" role="option" aria-selected="false">
+            <span class="model-mark" aria-hidden="true"></span>
+            <img src="../img/c_81319.jpg" alt="Xiaomi TV S Mini LED 98 אינץ'" class="model-image" />
+            <div class="model-text">
+              <h2 class="model-name">TV S Mini LED 98”</h2>
+              <p class="model-spec">QD-Mini LED 4K · 880 אזורי עמעום · 144Hz</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- מתנת ההצטרפות - נחשפת עם בחירת הדגם, בסכום הנגזר ממנו -->
+        <aside class="reward" id="giftcard-section" hidden>
+          <div class="reward-head">
+            <p class="reward-label">מתנת ההצטרפות</p>
+            <p class="reward-for" id="giftcard-caption"></p>
+          </div>
+          <figure class="reward-card">
+            <img src="../img/dreamcard.webp" alt="גיפטקארד Dream Card" class="reward-image" id="giftcard-image" />
+            <figcaption class="reward-amount" id="giftcard-amount"></figcaption>
+          </figure>
+          <p class="reward-note">הגיפטקארד יישלח לכתובת האימייל שתמסרו בשלב הבא.</p>
+        </aside>
+      </div>
+
+      <div class="panel-foot">
+        <button type="button" id="start-button" class="btn btn--primary" disabled>המשך לפרטי ההרשמה</button>
+      </div>
+    </section>
+
+    <!-- שלב 2: מקום הרכישה -->
+    <section id="screen-1" class="panel screen" aria-labelledby="screen1-title">
+      <div class="panel-head">
+        <h1 id="screen1-title">מקום הרכישה</h1>
+        <p>בחרו היכן נרכשה הטלוויזיה. שלב זה אינו חובה וניתן להמשיך בלעדיו.</p>
+      </div>
+
+      <div class="panel-body">
+        <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק"></div>
+        <input type="text" id="store-other" class="input store-other" placeholder="שם החנות" hidden />
+        <p class="store-picked" id="store-picked" hidden></p>
+      </div>
+
+      <div class="panel-foot">
+        <button type="button" id="store-back" class="btn btn--ghost">חזרה</button>
+        <button type="button" id="store-continue" class="btn btn--primary">המשך לפרטי ההרשמה</button>
+      </div>
+    </section>
+
+    <!-- שלב 3: פרטי הרשמה -->
+    <section id="screen-2" class="panel screen" aria-labelledby="screen2-title">
+      <div class="panel-head">
+        <h1 id="screen2-title">פרטי ההרשמה</h1>
+        <p>הפרטים נדרשים להנפקת המתנה ולרישום האחריות.</p>
+      </div>
+
+      <form id="details-form" class="panel-body form" novalidate>
+
+        <div class="field">
+          <label class="label" for="firstName">שם פרטי</label>
+          <input class="input" type="text" id="firstName" name="firstName" required autocomplete="given-name" />
+          <span class="field-error" data-error-for="firstName"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="lastName">שם משפחה</label>
+          <input class="input" type="text" id="lastName" name="lastName" required autocomplete="family-name" />
+          <span class="field-error" data-error-for="lastName"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="phone">טלפון</label>
+          <input class="input" type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="05X-XXXXXXX" />
+          <span class="field-error" data-error-for="phone"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">דואר אלקטרוני</label>
+          <input class="input" type="email" id="email" name="email" required autocomplete="email" placeholder="name@example.com" />
+          <span class="field-error" data-error-for="email"></span>
+        </div>
+
+        <div class="field field--full">
+          <label class="label" for="invoice">חשבונית קנייה <span class="hint-tag">אופציונלי</span></label>
+          <input class="input input--file" type="file" id="invoice" name="invoice" accept="image/*,application/pdf" />
+          <span class="field-hint" id="invoice-hint">קובץ תמונה או PDF, עד 5MB</span>
+          <span class="field-error" data-error-for="invoice"></span>
+        </div>
+
+        <div class="field field--full consents">
+          <label class="consent">
+            <input type="checkbox" id="marketing" name="marketing" />
+            <span class="consent-text">אני מאשר/ת קבלת דיוור וחומר שיווקי מקבוצת Hemilton</span>
+          </label>
+
+          <label class="consent" id="terms-row">
+            <input type="checkbox" id="terms" name="terms" required />
+            <span class="consent-text">קראתי ואני מאשר/ת את תקנון המועדון <span class="req" aria-hidden="true">*</span></span>
+          </label>
+          <span class="field-error" data-error-for="terms"></span>
+        </div>
+
+        <div class="panel-foot field--full">
+          <button type="button" id="back-button" class="btn btn--ghost">חזרה</button>
+          <button type="submit" class="btn btn--primary">שליחת ההרשמה</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- אישור -->
+    <section id="screen-confirm" class="panel screen" aria-labelledby="confirm-title">
+      <div class="confirm">
+        <span class="confirm-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5" /></svg>
+        </span>
+        <h1 id="confirm-title">ההרשמה נרשמה בהצלחה</h1>
+        <p class="confirm-lead">אישור מפורט נשלח לכתובת הדואר האלקטרוני שמסרתם.</p>
+
+        <dl class="summary" id="confirm-details"></dl>
+
+        <button type="button" id="restart-button" class="btn btn--ghost">הרשמה נוספת</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sitefoot">
+    <div class="shell sitefoot-inner">
+      <p>קבוצת Hemilton — היבואן הרשמי של Xiaomi בישראל</p>
+      <p class="sitefoot-fine">ההרשמה כפופה לתקנון המועדון. המתנה מוגבלת למכשיר אחד לכל הרשמה.</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=1"></script>
+</body>
+</html>
