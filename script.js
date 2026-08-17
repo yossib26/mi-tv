@@ -13,7 +13,7 @@ const state = {
   giftCardAmount: "",
 };
 
-// מק"ט המוצר נגזר משם קובץ התמונה: img/c_30002.jpg -> 30002
+// מק"ט המוצר נגזר משם קובץ התמונה: img/c_81313.jpg -> 81313
 function skuFromCard(card) {
   const img = card.querySelector("img");
   if (!img) return "";

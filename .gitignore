@@ -1,0 +1,8 @@
+# הגדרות מקומיות של Claude Code - לא שייכות לרפו
+.claude/
+
+# מערכת הפעלה / עורך
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
