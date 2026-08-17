@@ -3,76 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coffee Club - הרשמה ובחירת מתנה</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Xiaomi TV Club - הרשמה וקבלת מתנה</title>
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <div class="app-shell">
 
     <header class="brand-header">
-      <img src="img/gaggia-logo.svg" alt="Gaggia" class="brand-logo brand-logo--secondary" />
+      <img src="img/xiaomi-logo.svg" alt="Xiaomi" class="brand-logo brand-logo--secondary" />
       <img src="logo.png" alt="קבוצת Hemilton" class="brand-logo" />
     </header>
 
     <div class="progress-dots" aria-hidden="true">
       <span class="dot active" data-step="0"></span>
       <span class="dot" data-step="1"></span>
-      <span class="dot" data-step="2"></span>
     </div>
 
-    <!-- מסך 0: בחירת מכונת קפה -->
+    <!-- מסך 0: בחירת דגם הטלוויזיה -->
     <section id="screen-0" class="screen active" aria-labelledby="screen0-title">
       <div class="screen-header">
-        <h1 id="screen0-title">☕ בחרו את מכונת הקפה שלכם</h1>
+        <h1 id="screen0-title">📺 בחרו את הטלוויזיה שלכם</h1>
         <p>בחרו את הדגם שרכשתם כדי להמשיך</p>
       </div>
 
-      <div class="machine-grid" id="machine-grid" role="listbox" aria-label="אפשרויות מכונת קפה">
+      <div class="machine-grid machine-grid--row" id="machine-grid" role="listbox" aria-label="דגמי טלוויזיה">
 
-        <article class="machine-card" data-machine="avanza" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30010.jpg" alt="Gaggia Anima Barista Plus" class="machine-card-image" />
-          <h3>Gaggia Anima Barista Plus</h3>
+        <article class="machine-card" data-machine="tvMini55" tabindex="0" role="option" aria-selected="false">
+          <img src="img/c_81313.jpg" alt="Xiaomi TV S Mini LED 55 אינץ'" class="machine-card-image" />
+          <h3>Xiaomi TV S Mini LED 55 אינץ'</h3>
         </article>
 
-        <article class="machine-card" data-machine="baristaTS" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30004.jpg" alt="Gaggia Anima Deluxe" class="machine-card-image" />
-          <h3>Gaggia Anima Deluxe</h3>
+        <article class="machine-card" data-machine="tvMini65" tabindex="0" role="option" aria-selected="false">
+          <img src="img/c_81314.jpg" alt="Xiaomi TV S Mini LED 65 אינץ'" class="machine-card-image" />
+          <h3>Xiaomi TV S Mini LED 65 אינץ'</h3>
         </article>
 
-        <article class="machine-card" data-machine="passione" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30029.png" alt="Gaggia Anima OTC" class="machine-card-image" />
-          <h3>Gaggia Anima OTC</h3>
+        <article class="machine-card" data-machine="tvMini75" tabindex="0" role="option" aria-selected="false">
+          <img src="img/c_81315.jpg" alt="Xiaomi TV S Mini LED 75 אינץ'" class="machine-card-image" />
+          <h3>Xiaomi TV S Mini LED 75 אינץ'</h3>
         </article>
 
-        <article class="machine-card" data-machine="ciTouch" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30014.jpg" alt="Gaggia Anima Prestige OTC SS" class="machine-card-image" />
-          <h3>Gaggia Anima Prestige OTC SS</h3>
+        <article class="machine-card" data-machine="tvMini85" tabindex="0" role="option" aria-selected="false">
+          <img src="img/c_81318.jpg" alt="Xiaomi TV S Mini LED 85 אינץ'" class="machine-card-image" />
+          <h3>Xiaomi TV S Mini LED 85 אינץ'</h3>
         </article>
 
-        <article class="machine-card" data-machine="purista" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30003.jpg" alt="Gaggia Magenta Milk" class="machine-card-image" />
-          <h3>Gaggia Magenta Milk</h3>
-        </article>
-
-        <article class="machine-card" data-machine="latticia" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30017.jpg" alt="Gaggia Magenta Plus" class="machine-card-image" />
-          <h3>Gaggia Magenta Plus</h3>
-        </article>
-        <article class="machine-card" data-machine="solo" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30002.jpg" alt="Gaggia Magenta Prestige" class="machine-card-image" />
-          <h3>Gaggia Magenta Prestige</h3>
-        </article>
-
-        <article class="machine-card" data-machine="varianza" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_30028.png" alt="Gaggia Magenta Prestige אפור" class="machine-card-image" />
-          <h3>Gaggia Magenta Prestige אפור</h3>
+        <article class="machine-card" data-machine="tvMini98" tabindex="0" role="option" aria-selected="false">
+          <img src="img/c_81319.jpg" alt="Xiaomi TV S Mini LED 98 אינץ'" class="machine-card-image" />
+          <h3>Xiaomi TV S Mini LED 98 אינץ'</h3>
         </article>
       </div>
 
-      <div class="field-group field-group--full store-section">
-        <label>היכן רכשת את המכונה? <span class="optional-tag">(אופציונלי)</span></label>
-        <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק"></div>
-        <input type="text" id="store-other" class="store-other-input" placeholder="שם החנות" hidden />
+      <!-- הגיפטקארד נחשף מיד עם בחירת הטלוויזיה, בסכום לפי הדגם -->
+      <div class="giftcard-section" id="giftcard-section" hidden>
+        <p class="giftcard-headline">🎁 המתנה שלכם</p>
+        <div class="giftcard-visual">
+          <img src="img/dreamcard.webp" alt="גיפטקארד Dream Card" class="giftcard-image" id="giftcard-image" />
+          <div class="giftcard-amount" id="giftcard-amount"></div>
+        </div>
+        <p class="giftcard-caption" id="giftcard-caption"></p>
       </div>
 
       <div class="form-actions">
@@ -83,11 +72,17 @@
     <!-- מסך 1: פרטים אישיים -->
     <section id="screen-1" class="screen" aria-labelledby="screen1-title">
       <div class="screen-header">
-        <h1 id="screen1-title">☕ מצטרפים למועדון הקפה</h1>
-        <p>מלאו את הפרטים שלכם כדי להמשיך לבחירת מתנה</p>
+        <h1 id="screen1-title">📝 מצטרפים למועדון</h1>
+        <p>מלאו את הפרטים שלכם כדי להשלים את ההרשמה</p>
       </div>
 
       <form id="details-form" class="details-form" novalidate>
+        <div class="field-group field-group--full store-section">
+          <label>היכן רכשת את הטלוויזיה? <span class="optional-tag">(אופציונלי)</span></label>
+          <div class="store-grid" id="store-grid" role="listbox" aria-label="רשת שיווק"></div>
+          <input type="text" id="store-other" class="store-other-input" placeholder="שם החנות" hidden />
+        </div>
+
         <div class="field-group">
           <label for="firstName">שם פרטי</label>
           <input type="text" id="firstName" name="firstName" required autocomplete="given-name" />
@@ -120,54 +115,10 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="primary-button">המשך לבחירת מתנה ←</button>
+          <button type="button" id="back-button" class="secondary-button">→ חזרה</button>
+          <button type="submit" class="primary-button">אישור והרשמה</button>
         </div>
       </form>
-    </section>
-
-    <!-- מסך 2: בחירת מתנה -->
-    <section id="screen-2" class="screen" aria-labelledby="screen2-title">
-      <div class="screen-header">
-        <h1 id="screen2-title">🎁 בחרו את המתנה שלכם</h1>
-        <p>בחרו את המתנה הרצויה מתוך המבחר</p>
-      </div>
-
-      <div class="gift-grid" id="gift-carousel" role="listbox" aria-label="אפשרויות מתנה">
-        <article class="gift-card" data-gift="lifeP3" tabindex="0" role="option" aria-selected="false">
-          <img src="img/g_200400.jpg" alt="מיקרוגל Toshiba" class="gift-card-image" />
-          <h3>מיקרוגל Toshiba</h3>
-          <p>מיקרוגל מכני עם חוגות פונקציה והפשרה</p>
-        </article>
-
-        <article class="gift-card" data-gift="spaceA40" tabindex="0" role="option" aria-selected="false">
-          <img src="img/g_51002.jpg" alt="ערכת טעינה לרכב Anker" class="gift-card-image" />
-          <h3>ערכת טעינה לרכב Anker</h3>
-          <p>מעמד מגנטי אלחוטי, מטען מצית וכבל USB-C</p>
-        </article>
-
-        <article class="gift-card" data-gift="liberty4" tabindex="0" role="option" aria-selected="false">
-          <img src="img/g_51271.jpg" alt="אוזניות Soundcore אלחוטיות" class="gift-card-image" />
-          <h3>אוזניות Soundcore אלחוטיות</h3>
-          <p>אוזניות TWS עם נרתיק טעינה ותצוגת סוללה</p>
-        </article>
-
-        <article class="gift-card" data-gift="r50i" tabindex="0" role="option" aria-selected="false">
-          <img src="img/g_6824.jpg" alt="מאוורר עמוד" class="gift-card-image" />
-          <h3>מאוורר עמוד</h3>
-          <p>מאוורר טורי מתנדנד עם שלט רחוק</p>
-        </article>
-
-        <article class="gift-card" data-gift="spaceOne" tabindex="0" role="option" aria-selected="false">
-          <img src="img/g_81247.jpg" alt="מצלמת אבטחה Xiaomi 360°" class="gift-card-image" />
-          <h3>מצלמת אבטחה Xiaomi 360°</h3>
-          <p>מצלמה ביתית מסתובבת לניטור מרחוק</p>
-        </article>
-      </div>
-
-      <div class="form-actions">
-        <button type="button" id="back-button" class="secondary-button">→ חזרה</button>
-        <button type="button" id="confirm-gift-button" class="primary-button" disabled>אישור והרשמה</button>
-      </div>
     </section>
 
     <!-- מסך אישור -->
@@ -183,6 +134,6 @@
 
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

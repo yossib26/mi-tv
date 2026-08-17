@@ -10,6 +10,7 @@ const state = {
   store: "",
   gift: null,
   giftSku: "",
+  giftCardAmount: "",
 };
 
 // מק"ט המוצר נגזר משם קובץ התמונה: img/c_30002.jpg -> 30002
@@ -25,14 +26,11 @@ const invoice = { data: null, name: "", type: "" };
 const INVOICE_MAX_BYTES = 5 * 1024 * 1024;
 
 const machineLabels = {
-  solo: "Gaggia Magenta Prestige",
-  purista: "Gaggia Magenta Milk",
-  baristaTS: "Gaggia Anima Deluxe",
-  avanza: "Gaggia Anima Barista Plus",
-  ciTouch: "Gaggia Anima Prestige OTC SS",
-  latticia: "Gaggia Magenta Plus",
-  varianza: "Gaggia Magenta Prestige אפור",
-  passione: "Gaggia Anima OTC",
+  tvMini55: "Xiaomi TV S Mini LED 55 אינץ'",
+  tvMini65: "Xiaomi TV S Mini LED 65 אינץ'",
+  tvMini75: "Xiaomi TV S Mini LED 75 אינץ'",
+  tvMini85: "Xiaomi TV S Mini LED 85 אינץ'",
+  tvMini98: "Xiaomi TV S Mini LED 98 אינץ'",
 };
 
 function submitToSheet() {
@@ -51,18 +49,37 @@ function submitToSheet() {
   }).catch((err) => console.error("Failed to save registration:", err));
 }
 
+// המתנה קבועה - גיפטקארד Dream Card. רק הסכום משתנה לפי דגם הטלוויזיה.
+const GIFT_ID = "dreamcard";
+
 const giftLabels = {
-  lifeP3: "מיקרוגל Toshiba",
-  spaceA40: "ערכת טעינה לרכב Anker",
-  liberty4: "אוזניות Soundcore אלחוטיות",
-  r50i: "מאוורר עמוד",
-  spaceOne: "מצלמת אבטחה Xiaomi 360°",
+  dreamcard: "גיפטקארד Dream Card",
+};
+
+// סכום הגיפטקארד המוענק לכל דגם טלוויזיה, בשקלים.
+// זהו המקום היחיד לעדכון הסכומים.
+const giftCardAmounts = {
+  tvMini55: 250,
+  tvMini65: 300,
+  tvMini75: 400,
+  tvMini85: 550,
+  tvMini98: 850,
+};
+
+// תמונת הגיפטקארד לכל דגם. כרגע כולם משתמשים באותה תמונה;
+// כדי לתת תמונה נפרדת לדגם - הוסיפו כאן שורה עם נתיב התמונה שלו.
+const GIFT_CARD_IMAGE_DEFAULT = "img/dreamcard.webp";
+const giftCardImages = {
+  tvMini55: GIFT_CARD_IMAGE_DEFAULT,
+  tvMini65: GIFT_CARD_IMAGE_DEFAULT,
+  tvMini75: GIFT_CARD_IMAGE_DEFAULT,
+  tvMini85: GIFT_CARD_IMAGE_DEFAULT,
+  tvMini98: GIFT_CARD_IMAGE_DEFAULT,
 };
 
 const screens = {
   0: document.getElementById("screen-0"),
   1: document.getElementById("screen-1"),
-  2: document.getElementById("screen-2"),
   confirm: document.getElementById("screen-confirm"),
 };
 
@@ -101,7 +118,38 @@ function selectMachine(card) {
   state.machine = card.dataset.machine;
   state.machineSku = skuFromCard(card);
   startButton.disabled = false;
-  if (storeSection) storeSection.classList.remove("is-hidden");
+  renderGiftCard(state.machine);
+  revealGiftCard();
+}
+
+/* גולל כך שגם הגיפטקארד וגם כפתור "המשך" יהיו גלויים אחרי הבחירה.
+   נמדד בזמן אמת ולכן עובד גם בדסקטופ וגם במובייל. */
+function revealGiftCard() {
+  const actions = document.querySelector("#screen-0 .form-actions");
+  if (!actions || giftCardSection.hidden) return;
+
+  // הכרטיס הרגע נחשף - ממתינים לפריסה לפני מדידת המיקום.
+  requestAnimationFrame(() => {
+    const PAD = 16;
+    const viewportHeight = window.innerHeight;
+    const cardTop = giftCardSection.getBoundingClientRect().top;
+    const actionsBottom = actions.getBoundingClientRect().bottom;
+
+    // הכל כבר גלוי - לא מזיזים את העמוד.
+    if (cardTop >= 0 && actionsBottom <= viewportHeight) return;
+
+    const blockHeight = actionsBottom - cardTop;
+    const offset =
+      blockHeight + PAD * 2 <= viewportHeight
+        ? actionsBottom + PAD - viewportHeight // מיישר את הכפתור לתחתית, הכרטיס נשאר מעליו
+        : cardTop - PAD; // הבלוק גבוה מהמסך - מעדיפים את ראש הכרטיס
+
+    const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+    const target = Math.max(0, Math.min(window.scrollY + offset, maxScroll));
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: target, behavior: reduceMotion ? "auto" : "smooth" });
+  });
 }
 
 startButton.addEventListener("click", () => {
@@ -148,10 +196,14 @@ detailsForm.addEventListener("submit", (e) => {
     state[name] = detailsForm.elements[name].value.trim();
   });
 
-  document.getElementById("screen2-title").textContent =
-    `🎁 בחרו את המתנה שלכם למכונת ה-${machineLabels[state.machine]}`;
+  // שלב 2 הוא הסופי - שליחה ומעבר ישירות למסך האישור.
+  renderConfirmation();
+  submitToSheet();
+  goToScreen("confirm");
+});
 
-  goToScreen(2);
+document.getElementById("back-button").addEventListener("click", () => {
+  goToScreen(0);
 });
 
 ["firstName", "lastName", "phone", "email"].forEach((name) => {
@@ -204,11 +256,7 @@ invoiceInput.addEventListener("change", () => {
 /* ---- בורר רשת שיווק ---- */
 const storeGrid = document.getElementById("store-grid");
 const storeOtherInput = document.getElementById("store-other");
-const storeSection = document.querySelector(".store-section");
 let selectedStoreTile = null;
-
-// מוסתר בטעינה, ומתגלה רק לאחר בחירת מכונה.
-if (storeSection) storeSection.classList.add("is-hidden");
 
 function currentStoreLabel() {
   if (!selectedStoreTile) return "";
@@ -236,9 +284,26 @@ storeGrid.addEventListener("click", (e) => {
   } else {
     storeOtherInput.hidden = true;
     storeOtherInput.value = "";
+    focusFirstField();
   }
   state.store = currentStoreLabel();
 });
+
+/* אחרי בחירת חנות ממשיכים ישר לשדה הראשון בטופס. */
+function focusFirstField() {
+  const firstField = detailsForm.elements.firstName;
+  if (!firstField) return;
+
+  requestAnimationFrame(() => {
+    // preventScroll כדי שהמיקוד לא יקפיץ בחדות, והגלילה תהיה חלקה
+    firstField.focus({ preventScroll: true });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    firstField.scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth",
+      block: "center",
+    });
+  });
+}
 
 storeOtherInput.addEventListener("input", () => {
   state.store = currentStoreLabel();
@@ -248,12 +313,12 @@ storeOtherInput.addEventListener("input", () => {
 const STORES_URL = "stores.json";
 const STORE_IMG_BASE = "img/";
 const STORES_FALLBACK = [
+  { id: "xiaomi-online", label: "אתר האינטרנט Xiaomi", logo: "s_xiaomi.png" },
   { id: "machsanei-hashmal", label: "מחסני חשמל", logo: "s_machsanei.png" },
   { id: "ksp", label: "KSP", logo: "s_ksp.jpg" },
   { id: "bug", label: "באג", logo: "s_bug.png" },
   { id: "shekem-electric", label: "שקם אלקטריק" },
   { id: "alm", label: "א.ל.מ" },
-  { id: "other", label: "אחר", icon: "➕", other: true },
 ];
 
 function renderStores(list) {
@@ -267,6 +332,7 @@ function renderStores(list) {
     btn.setAttribute("role", "option");
     btn.setAttribute("aria-selected", "false");
     btn.setAttribute("aria-label", s.label);
+    btn.title = s.label; // אריח לוגו לא מציג טקסט - שם החנות מופיע ב-hover
 
     if (s.logo) {
       const img = document.createElement("img");
@@ -294,7 +360,7 @@ function renderStores(list) {
 async function loadStores() {
   let list = STORES_FALLBACK;
   try {
-    const res = await fetch(STORES_URL);
+    const res = await fetch(STORES_URL + "?t=" + Date.now()); // מונע הגשת JSON ישן מהמטמון
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
     if (Array.isArray(data.stores) && data.stores.length) list = data.stores;
@@ -306,56 +372,44 @@ async function loadStores() {
 
 loadStores();
 
-const giftCards = document.querySelectorAll(".gift-card");
-const confirmGiftButton = document.getElementById("confirm-gift-button");
+const giftCardSection = document.getElementById("giftcard-section");
+const giftCardImageEl = document.getElementById("giftcard-image");
+const giftCardAmountEl = document.getElementById("giftcard-amount");
+const giftCardCaptionEl = document.getElementById("giftcard-caption");
 
-giftCards.forEach((card) => {
-  card.addEventListener("click", () => selectGift(card));
-  card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      selectGift(card);
-    }
-  });
-});
+// המתנה זהה לכולם - משתנים רק הסכום והתמונה, לפי דגם הטלוויזיה.
+function renderGiftCard(machineKey) {
+  const amount = giftCardAmounts[machineKey] || 0;
 
-function selectGift(card) {
-  giftCards.forEach((c) => {
-    c.classList.remove("selected");
-    c.setAttribute("aria-selected", "false");
-  });
-  card.classList.add("selected");
-  card.setAttribute("aria-selected", "true");
-  card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  if (!amount) {
+    state.gift = null;
+    state.giftCardAmount = "";
+    giftCardSection.hidden = true;
+    return;
+  }
 
-  state.gift = card.dataset.gift;
-  state.giftSku = skuFromCard(card);
-  confirmGiftButton.disabled = false;
+  state.gift = GIFT_ID;
+  state.giftCardAmount = amount;
+  giftCardImageEl.src = giftCardImages[machineKey] || GIFT_CARD_IMAGE_DEFAULT;
+  giftCardAmountEl.textContent = "₪" + amount.toLocaleString("he-IL");
+  giftCardCaptionEl.textContent = `על רכישת ${machineLabels[machineKey]}`;
+  giftCardSection.hidden = false;
 }
-
-document.getElementById("back-button").addEventListener("click", () => {
-  goToScreen(1);
-});
-
-document.getElementById("confirm-gift-button").addEventListener("click", () => {
-  if (!state.gift) return;
-  renderConfirmation();
-  submitToSheet();
-  goToScreen("confirm");
-});
 
 function renderConfirmation() {
   const details = document.getElementById("confirm-details");
   details.innerHTML = "";
 
   const rows = [
-    ["מכונה שנרכשה", machineLabels[state.machine]],
+    ["טלוויזיה שנרכשה", machineLabels[state.machine]],
     ["שם מלא", `${state.firstName} ${state.lastName}`],
     ["טלפון", state.phone],
     ["אימייל", state.email],
-    ["מתנה שנבחרה", giftLabels[state.gift]],
   ];
 
+  if (state.giftCardAmount) {
+    rows.push([giftLabels[state.gift], "₪" + state.giftCardAmount.toLocaleString("he-IL")]);
+  }
   if (state.store) rows.push(["מקום רכישה", state.store]);
   if (invoice.name) rows.push(["חשבונית", invoice.name]);
 
@@ -373,11 +427,9 @@ document.getElementById("restart-button").addEventListener("click", () => {
     detailsForm.querySelector(`[data-error-for="${name}"]`).textContent = "";
   });
 
-  giftCards.forEach((c) => {
-    c.classList.remove("selected");
-    c.setAttribute("aria-selected", "false");
-  });
-  confirmGiftButton.disabled = true;
+  giftCardAmountEl.textContent = "";
+  giftCardCaptionEl.textContent = "";
+  giftCardSection.hidden = true;
 
   machineCards.forEach((c) => {
     c.classList.remove("selected");
@@ -399,7 +451,6 @@ document.getElementById("restart-button").addEventListener("click", () => {
   selectedStoreTile = null;
   storeOtherInput.value = "";
   storeOtherInput.hidden = true;
-  if (storeSection) storeSection.classList.add("is-hidden");
 
   Object.keys(state).forEach((key) => (state[key] = key === "gift" || key === "machine" ? null : ""));
 

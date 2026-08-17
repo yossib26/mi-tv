@@ -17,6 +17,25 @@
 // כתובת לקבלת התראות על הרשמות. השאירו ריק כדי לשלוח לחשבון שבבעלותו הסקריפט.
 var OWNER_EMAIL = "";
 
+// גיליון היעד, מקובע במפורש כדי שהכתיבה לא תהיה תלויה בגיליון שהסקריפט מחובר אליו.
+// המזהה נלקח מכתובת הגיליון: docs.google.com/spreadsheets/d/<ID>/edit#gid=<GID>
+var SPREADSHEET_ID = "1_KM-wmT9kxC5w_o4TgUq7T_2onFsraJo52K6JznAT70";
+var SHEET_GID = 0;
+
+// מחזיר את הלשונית לפי ה-GID. אם לא נמצאה - נופל ללשונית הראשונה,
+// כדי שהרשמה לא תיאבד גם אם ה-GID השתנה.
+function targetSheet_() {
+  var ss = SPREADSHEET_ID
+    ? SpreadsheetApp.openById(SPREADSHEET_ID)
+    : SpreadsheetApp.getActiveSpreadsheet();
+
+  var sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].getSheetId() === SHEET_GID) return sheets[i];
+  }
+  return sheets[0];
+}
+
 // הריצו ידנית פעם אחת כדי לאשר את ההרשאות (וגם מכין את תיקיית היעד).
 function authorizeAll() {
   var folderName = "Coffee Club Invoices";
@@ -25,11 +44,18 @@ function authorizeAll() {
 
   var quota = MailApp.getRemainingDailyQuota();
 
-  Logger.log("OK - תיקיית Drive: " + folder.getName() + " | מכסת מיילים שנותרה היום: " + quota);
+  // נוגע בגיליון היעד כדי שאישור ההרשאות יכסה גם את openById.
+  var sheet = targetSheet_();
+
+  Logger.log(
+    "OK - תיקיית Drive: " + folder.getName() +
+    " | גיליון: " + sheet.getParent().getName() + " / לשונית: " + sheet.getName() +
+    " | מכסת מיילים שנותרה היום: " + quota
+  );
 }
 
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var sheet = targetSheet_();
   var data = JSON.parse(e.postData.contents);
 
   var invoiceUrl = "";
@@ -56,6 +82,10 @@ function doPost(e) {
     {
       value: data.giftSku || "",
       headers: ["מק״ט מתנה", "מקט מתנה"],
+    },
+    {
+      value: data.giftCardAmount || "",
+      headers: ["סכום גיפטקארד", "גיפטקארד", "סכום מתנה", "סכום"],
     },
   ];
 
@@ -101,11 +131,14 @@ function sendEmails_(data, invoiceUrl) {
   var fullName = ((data.firstName || "") + " " + (data.lastName || "")).trim();
 
   var rows = [
-    ["מכונת הקפה", machine + (machineSku ? " (מק״ט " + machineSku + ")" : "")],
-    ["המתנה שנבחרה", gift + (giftSku ? " (מק״ט " + giftSku + ")" : "")],
+    ["המוצר שנרכש", machine + (machineSku ? " (מק״ט " + machineSku + ")" : "")],
+    ["המתנה", gift + (giftSku ? " (מק״ט " + giftSku + ")" : "")],
     ["טלפון", data.phone || ""],
     ["אימייל", data.email || ""],
   ];
+  if (data.giftCardAmount) {
+    rows.push(["סכום הגיפטקארד", "₪" + data.giftCardAmount]);
+  }
   if (data.store) {
     rows.push(["מקום רכישה", data.store]);
   }

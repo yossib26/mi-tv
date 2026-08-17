@@ -1,10 +1,10 @@
 {
   "stores": [
+    { "id": "xiaomi-online", "label": "אתר האינטרנט Xiaomi", "logo": "s_xiaomi.png" },
     { "id": "machsanei-hashmal", "label": "מחסני חשמל", "logo": "s_machsanei.png" },
     { "id": "ksp", "label": "KSP", "logo": "s_ksp.jpg" },
     { "id": "bug", "label": "באג", "logo": "s_bug.png" },
     { "id": "shekem-electric", "label": "שקם אלקטריק" },
-    { "id": "alm", "label": "א.ל.מ" },
-    { "id": "other", "label": "אחר", "icon": "➕", "other": true }
+    { "id": "alm", "label": "א.ל.מ" }
   ]
 }
