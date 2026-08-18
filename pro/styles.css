@@ -102,16 +102,20 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
+/* התאים נמדדים לפי התוכן וממורכזים כקבוצה. flex:1 היה מותח אותם
+   לרוחב שווה ומשאיר כל אייקון בהיסט אחר מהמרכז. */
 .howto-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  gap: 6px 16px;
   margin: 0;
   padding-block: 13px;
   list-style: none;
 }
 
 .howto-item {
-  flex: 1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -125,8 +129,7 @@ body {
   flex: 0 0 auto;
   width: 7px;
   height: 7px;
-  margin-inline-start: auto;
-  margin-inline-end: 14px;
+  margin-inline-start: 6px;
   border-left: 1.5px solid #c8cfd6;
   border-bottom: 1.5px solid #c8cfd6;
   transform: rotate(45deg);
@@ -709,17 +712,25 @@ body {
   .brand--xiaomi   { height: 17px; }
   .topbar-label { display: none; }
 
-  /* ארבעה פריטים בשורה אחת בלתי קריאים בנייד - עוברים לרשת 2x2 */
+  /* ארבעה פריטים בשורה אחת בלתי קריאים בנייד - רשת 2x2,
+     ובכל תא האייקון ממורכז מעל התווית */
   .howto-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px 10px;
-    padding-block: 12px;
+    gap: 14px 10px;
+    padding-block: 13px;
   }
 
-  .howto-item { align-items: flex-start; gap: 8px; }
-  .howto-icon { width: 30px; height: 30px; }
-  .howto-icon svg { width: 17px; height: 17px; }
+  .howto-item {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .howto-icon { width: 32px; height: 32px; }
+  .howto-icon svg { width: 18px; height: 18px; }
   .howto-text { font-size: 0.74rem; line-height: 1.3; }
 
   .main { padding-block: 16px 28px; }
