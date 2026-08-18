@@ -102,37 +102,40 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
-/* התאים נמדדים לפי התוכן וממורכזים כקבוצה. flex:1 היה מותח אותם
-   לרוחב שווה ומשאיר כל אייקון בהיסט אחר מהמרכז. */
+/* עמודות שוות, ובכל עמודה האייקון ממורכז מעל התווית. אייקון לצד טקסט
+   היה מציב כל אייקון בהיסט אחר, לפי אורך התווית שלו. */
 .howto-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 6px 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   margin: 0;
-  padding-block: 13px;
+  padding-block: 14px;
   list-style: none;
 }
 
 .howto-item {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   min-width: 0;
+  text-align: center;
 }
 
 /* חץ מפריד כ-CSS בלבד: דקורטיבי, ולכן לא מוסיף רעש לקורא מסך.
+   יושב במרווח שלפני העמודה, בגובה מרכז האייקון.
    border-left+bottom מסובבים = חץ שמצביע שמאלה, כיוון הזרימה ב-RTL. */
-.howto-item:not(:last-child)::after {
+.howto-item:not(:first-child)::before {
   content: "";
-  flex: 0 0 auto;
+  position: absolute;
+  top: 19px; /* מרכז אייקון של 38px */
+  inset-inline-start: -16px;
   width: 7px;
   height: 7px;
-  margin-inline-start: 6px;
   border-left: 1.5px solid #c8cfd6;
   border-bottom: 1.5px solid #c8cfd6;
-  transform: rotate(45deg);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .howto-icon {
@@ -692,8 +695,8 @@ body {
   .model-grid { grid-template-columns: repeat(3, 1fr); }
 
   /* בשלב הזה הטקסטים הארוכים נדחסים - מוותרים על החצים לטובת רוחב */
-  .howto-item:not(:last-child)::after { display: none; }
-  .howto-list { gap: 18px; }
+  .howto-item:not(:first-child)::before { display: none; }
+  .howto-list { gap: 16px; }
   .howto-text { font-size: 0.78rem; }
 }
 
@@ -712,22 +715,14 @@ body {
   .brand--xiaomi   { height: 17px; }
   .topbar-label { display: none; }
 
-  /* ארבעה פריטים בשורה אחת בלתי קריאים בנייד - רשת 2x2,
-     ובכל תא האייקון ממורכז מעל התווית */
+  /* ארבע עמודות בלתי קריאות בנייד - יורדים לרשת 2x2 */
   .howto-list {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px 10px;
     padding-block: 13px;
   }
 
-  .howto-item {
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 6px;
-    text-align: center;
-  }
+  .howto-item { gap: 6px; }
 
   .howto-icon { width: 32px; height: 32px; }
   .howto-icon svg { width: 18px; height: 18px; }
