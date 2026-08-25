@@ -653,8 +653,13 @@ body {
   .shell { padding-inline: 14px; }
 
   .topbar-inner { height: 52px; }
-  .brand--hemilton { height: 27px; }
-  .brand--xiaomi   { height: 17px; }
+  /* logo.png ריבועי - קובעים רוחב (לא גובה) כדי ש-height:auto ישמור על
+     היחס המקורי, ומכווצים את חלון החיתוך של brand-crop באותה יחסיות
+     בדיוק כמו בדסקטופ (38/116), אחרת ה-height שנקבע כאן היה בעבר דורס
+     רק את הגובה ומותח את הלוגו הריבועי לתיבה לא-מרובעת. */
+  .brand-crop { height: 31px; }
+  .brand--hemilton { width: 95px; height: auto; }
+  .brand--xiaomi   { height: 19px; }
   .topbar-label { display: none; }
 
   .main { padding-block: 16px 28px; }
