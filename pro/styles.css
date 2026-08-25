@@ -54,10 +54,8 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
-/* הלוגואים ממורכזים ברצועה כקבוצה; תווית "מועדון הלקוחות" מוצמדת בנפרד
-   לצד ה-end (שמאל ב-RTL) עם position:absolute כדי לא להזיז את המרכוז. */
+/* הלוגואים ממורכזים ברצועה כקבוצה. */
 .topbar-inner {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,16 +87,6 @@ body {
   width: 1px;
   height: 24px;
   background: var(--line);
-}
-
-.topbar-label {
-  position: absolute;
-  inset-inline-end: 0;
-  margin: 0;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--ink-3);
 }
 
 /* ===== גוף העמוד ===== */
@@ -660,7 +648,6 @@ body {
   .brand-crop { height: 31px; }
   .brand--hemilton { width: 95px; height: auto; }
   .brand--xiaomi   { height: 19px; }
-  .topbar-label { display: none; }
 
   .main { padding-block: 16px 28px; }
 
