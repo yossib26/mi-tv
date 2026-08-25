@@ -613,12 +613,13 @@ body {
 
 .sitefoot-inner {
   padding-block: 16px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--ink-3);
+  text-align: center;
 }
 
 .sitefoot-inner p { margin: 0; }
-.sitefoot-fine { margin-top: 3px !important; font-size: 0.75rem; color: #97a0aa; }
+.sitefoot-fine { margin-top: 3px !important; font-size: 0.82rem; color: #97a0aa; }
 
 /* ==========================================================================
    רספונסיביות
