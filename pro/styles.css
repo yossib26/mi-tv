@@ -283,13 +283,7 @@ body {
   margin: 0 0 2px;
   font-size: 0.95rem;
   font-weight: 700;
-}
-
-.model-spec {
-  margin: 0;
-  font-size: 0.75rem;
-  line-height: 1.4;
-  color: var(--ink-3);
+  text-align: center;
 }
 
 /* ===== מתנת ההצטרפות ===== */
@@ -352,8 +346,10 @@ body {
 /* aspect-ratio שומר את גובה התמונה מראש, לפני שהיא נטענת בפועל - בלעדיו
    הקופסה גבוהה 0px עד סיום הטעינה, מה שמזיז את העמוד אחרי שהגלילה
    האוטומטית ל-revealGiftCard() כבר חישבה יעד לפי המצב (הנמוך) הקודם,
-   והכפתור נשאר חתוך מתחת לגלישה. 1000x640 = מידות dreamcard.webp בפועל. */
-.reward-image { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 640; }
+   והכפתור נשאר חתוך מתחת לגלישה. 1:1 = מידות תמונות ה-g_* בפועל (600x600).
+   object-fit: contain מגן על הפרופורציות גם אם תמונת הטבה עתידית תגיע
+   ביחס אחר (כמו dreamcard.webp, 1000x640 - היחיד שאינו ריבועי). */
+.reward-image { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; }
 
 /* ===== טופס ===== */
 .form {

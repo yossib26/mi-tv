@@ -121,10 +121,11 @@ const giftCardImageEl = document.getElementById("giftcard-image");
 const giftCardCaptionEl = document.getElementById("giftcard-caption");
 
 // הסכום נשמר ב-state ונשלח לגיליון כרגיל - הוא רק לא מוצג יותר מוטבע על התמונה.
+// הטבה מוצגת גם כשאין לה סכום כספי (למשל מוצר פיזי במקום שובר).
 function renderGiftCard(item) {
-  const amount = item.giftAmount || 0;
+  const hasGift = Boolean(item.giftName || item.giftImage);
 
-  if (!amount) {
+  if (!hasGift) {
     state.gift = null;
     state.giftSku = "";
     state.giftLabel = "";
@@ -136,7 +137,7 @@ function renderGiftCard(item) {
   state.gift = item.giftSku || "";
   state.giftSku = item.giftSku || "";
   state.giftLabel = item.giftName || "";
-  state.giftCardAmount = amount;
+  state.giftCardAmount = item.giftAmount || ""; // ריק להטבות פיזיות שאינן שובר כספי
   giftCardImageEl.src = item.giftImage ? "../img/" + item.giftImage : GIFT_CARD_IMAGE_DEFAULT;
   giftCardCaptionEl.textContent = item.giftName || "";
   giftCardSection.hidden = false;
@@ -471,11 +472,17 @@ loadStores();
 
 const ITEMS_URL = "../items.json";
 const ITEMS_FALLBACK = [
-  { machine: "tvMini55", sort: 1, sku: "81313", name: "Xiaomi TV S Mini LED 55 אינץ'", displayName: "TV S Mini LED 55”", description: "QD-Mini LED 4K · 308 אזורי עמעום · 120Hz", image: "c_81313.jpg", giftSku: "GC-DREAM-250", giftName: "גיפטקארד Dream Card", giftAmount: 250, giftImage: "dreamcard.webp" },
-  { machine: "tvMini65", sort: 2, sku: "81314", name: "Xiaomi TV S Mini LED 65 אינץ'", displayName: "TV S Mini LED 65”", description: "QD-Mini LED 4K · 384 אזורי עמעום · 120Hz", image: "c_81314.jpg", giftSku: "GC-DREAM-300", giftName: "גיפטקארד Dream Card", giftAmount: 300, giftImage: "dreamcard.webp" },
-  { machine: "tvMini75", sort: 3, sku: "81315", name: "Xiaomi TV S Mini LED 75 אינץ'", displayName: "TV S Mini LED 75”", description: "QD-Mini LED 4K · 512 אזורי עמעום · 120Hz", image: "c_81315.jpg", giftSku: "GC-DREAM-400", giftName: "גיפטקארד Dream Card", giftAmount: 400, giftImage: "dreamcard.webp" },
-  { machine: "tvMini85", sort: 4, sku: "81318", name: "Xiaomi TV S Mini LED 85 אינץ'", displayName: "TV S Mini LED 85”", description: "QD-Mini LED 4K · 640 אזורי עמעום · 144Hz", image: "c_81318.jpg", giftSku: "GC-DREAM-550", giftName: "גיפטקארד Dream Card", giftAmount: 550, giftImage: "dreamcard.webp" },
-  { machine: "tvMini98", sort: 5, sku: "81319", name: "Xiaomi TV S Mini LED 98 אינץ'", displayName: "TV S Mini LED 98”", description: "QD-Mini LED 4K · 880 אזורי עמעום · 144Hz", image: "c_81319.jpg", giftSku: "GC-DREAM-850", giftName: "גיפטקארד Dream Card", giftAmount: 850, giftImage: "dreamcard.webp" },
+  { machine: "tvSMini55", sort: 1, sku: "81313", name: "Xiaomi TV S Mini LED  2026 55\" 1200 nit L55MC-SME", image: "tv_81313.jpg", giftSku: "DC350", giftName: "שובר DREAM CARD בשווי 350 ₪", giftAmount: 350, giftImage: "g_DC350.jpg" },
+  { machine: "tvSMini65", sort: 2, sku: "81314", name: "Xiaomi TV S Mini LED  2026 65\" 1200 nit L65MC-SME", image: "tv_81314.jpg", giftSku: "DC400", giftName: "שובר DREAM CARD בשווי 400 ₪", giftAmount: 400, giftImage: "g_DC400.jpg" },
+  { machine: "tvSMini75", sort: 3, sku: "81315", name: "Xiaomi TV S Mini LED  2026 75\" 1200 nit L75MC-SME", image: "tv_81315.jpg", giftSku: "DC400", giftName: "שובר DREAM CARD בשווי 400 ₪", giftAmount: 400, giftImage: "g_DC400.jpg" },
+  { machine: "tvSMini85", sort: 4, sku: "81318", name: "Xiaomi TV S Mini LED 85 2026 1200NIT 144HZ", image: "tv_81318.jpg", giftSku: "DC600", giftName: "שובר DREAM CARD בשווי 600 ₪", giftAmount: 600, giftImage: "g_DC600.jpg" },
+  { machine: "tvSProMini55", sort: 5, sku: "89626", name: "Xiaomi TV S Pro Mini LED 55 2026 1700NIT L55MB-SME", image: "tv_89626.jpg", giftSku: "DC350", giftName: "שובר DREAM CARD בשווי 350 ₪", giftAmount: 350, giftImage: "g_DC350.jpg" },
+  { machine: "tvSProMini65", sort: 6, sku: "89627", name: "Xiaomi TV S Pro Mini LED 65 2026 1700NIT L65MB-SME", image: "tv_89627.jpg", giftSku: "DC400", giftName: "שובר DREAM CARD בשווי 400 ₪", giftAmount: 400, giftImage: "g_DC400.jpg" },
+  { machine: "tvSProMini75", sort: 7, sku: "89628", name: "Xiaomi TV S Pro Mini LED 75 2026 1700Nit L75MB-SME", image: "tv_89628.jpg", giftSku: "DC400", giftName: "שובר DREAM CARD בשווי 400 ₪", giftAmount: 400, giftImage: "g_DC400.jpg" },
+  { machine: "scooter6Lite", sort: 8, sku: "81354", name: "Xiaomi Electric Scooter 6 Lite GL", image: "tv_81354.jpg", giftSku: "81276", giftName: "משאבת אויר חשמלית קומפקטית ניידת", giftImage: "g_81276.jpg" },
+  { machine: "scooter6", sort: 9, sku: "81291", name: "Xiaomi Electric Scooter 6 קורקינט חשמלי שיכוח מלא", image: "tv_81291.jpg", giftSku: "81276", giftName: "משאבת אויר חשמלית קומפקטית ניידת", giftImage: "g_81276.jpg" },
+  { machine: "fanProSlim", sort: 10, sku: "81400", name: "Mijia Smart Standing Fan Pro Slim EU", image: "tv_81400.jpg", giftSku: "81277", giftName: "סוללת גיבוי Xiaomi 67W 10000mAh", giftImage: "g_81277.jpg" },
+  { machine: "espressoMachine", sort: 11, sku: "81260", name: "Xiaomi Semi-automatic Espresso Machine מכונת אספרסו", image: "tv_81260.jpg", giftSku: "2602", giftName: "מטחנת קפה המילטון", giftImage: "g_2602.jpg" },
 ];
 
 // ממיין לפי שדה sort (פריטים בלי sort יורדים לסוף, בסדר יציב ביניהם).
@@ -520,13 +527,8 @@ function renderModels(list) {
 
     const name = document.createElement("h2");
     name.className = "model-name";
-    name.textContent = item.displayName || item.name;
+    name.textContent = item.name;
     text.appendChild(name);
-
-    const spec = document.createElement("p");
-    spec.className = "model-spec";
-    spec.textContent = item.description || "";
-    text.appendChild(spec);
 
     card.appendChild(text);
     machineGrid.appendChild(card);
@@ -561,8 +563,10 @@ function renderConfirmation() {
     ["דואר אלקטרוני", state.email],
   ];
 
-  if (state.giftCardAmount) {
-    rows.push([state.giftLabel, "₪" + state.giftCardAmount.toLocaleString("he-IL")]);
+  if (state.giftLabel) {
+    // הטבה כספית (שובר) מוצגת עם הסכום; הטבה פיזית מוצגת עם שמה בלבד.
+    const amountText = state.giftCardAmount ? ` (₪${Number(state.giftCardAmount).toLocaleString("he-IL")})` : "";
+    rows.push(["ההטבה שלכם", state.giftLabel + amountText]);
   }
   if (state.store) rows.push(["מקום רכישה", state.store]);
   if (invoice.name) rows.push(["חשבונית", invoice.name]);
