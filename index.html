@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Xiaomi TV Club - הרשמה וקבלת מתנה</title>
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
   <div class="app-shell">
 
     <header class="brand-header">
-      <img src="img/xiaomi-logo.svg" alt="Xiaomi" class="brand-logo brand-logo--secondary" />
+      <img src="img/s_xiaomi.png" alt="Xiaomi" class="brand-logo brand-logo--secondary" />
       <img src="logo.png" alt="קבוצת Hemilton" class="brand-logo" />
     </header>
 
@@ -26,40 +26,14 @@
         <p>בחרו את הדגם שרכשתם כדי להמשיך</p>
       </div>
 
-      <div class="machine-grid machine-grid--row" id="machine-grid" role="listbox" aria-label="דגמי טלוויזיה">
-
-        <article class="machine-card" data-machine="tvMini55" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_81313.jpg" alt="Xiaomi TV S Mini LED 55 אינץ'" class="machine-card-image" />
-          <h3>Xiaomi TV S Mini LED 55 אינץ'</h3>
-        </article>
-
-        <article class="machine-card" data-machine="tvMini65" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_81314.jpg" alt="Xiaomi TV S Mini LED 65 אינץ'" class="machine-card-image" />
-          <h3>Xiaomi TV S Mini LED 65 אינץ'</h3>
-        </article>
-
-        <article class="machine-card" data-machine="tvMini75" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_81315.jpg" alt="Xiaomi TV S Mini LED 75 אינץ'" class="machine-card-image" />
-          <h3>Xiaomi TV S Mini LED 75 אינץ'</h3>
-        </article>
-
-        <article class="machine-card" data-machine="tvMini85" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_81318.jpg" alt="Xiaomi TV S Mini LED 85 אינץ'" class="machine-card-image" />
-          <h3>Xiaomi TV S Mini LED 85 אינץ'</h3>
-        </article>
-
-        <article class="machine-card" data-machine="tvMini98" tabindex="0" role="option" aria-selected="false">
-          <img src="img/c_81319.jpg" alt="Xiaomi TV S Mini LED 98 אינץ'" class="machine-card-image" />
-          <h3>Xiaomi TV S Mini LED 98 אינץ'</h3>
-        </article>
-      </div>
+      <!-- הכרטיסים נטענים דינמית מ-items.json על ידי script.js -->
+      <div class="machine-grid machine-grid--row" id="machine-grid" role="listbox" aria-label="דגמי טלוויזיה"></div>
 
       <!-- הגיפטקארד נחשף מיד עם בחירת הטלוויזיה, בסכום לפי הדגם -->
       <div class="giftcard-section" id="giftcard-section" hidden>
         <p class="giftcard-headline">🎁 המתנה שלכם</p>
         <div class="giftcard-visual">
           <img src="img/dreamcard.webp" alt="גיפטקארד Dream Card" class="giftcard-image" id="giftcard-image" />
-          <div class="giftcard-amount" id="giftcard-amount"></div>
         </div>
         <p class="giftcard-caption" id="giftcard-caption"></p>
       </div>
@@ -149,6 +123,6 @@
 
   </div>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>

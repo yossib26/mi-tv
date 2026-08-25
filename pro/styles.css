@@ -54,10 +54,13 @@ body {
   border-bottom: 1px solid var(--line);
 }
 
+/* הלוגואים ממורכזים ברצועה כקבוצה; תווית "מועדון הלקוחות" מוצמדת בנפרד
+   לצד ה-end (שמאל ב-RTL) עם position:absolute כדי לא להזיז את המרכוז. */
 .topbar-inner {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px;
   height: 60px;
 }
@@ -89,73 +92,13 @@ body {
 }
 
 .topbar-label {
+  position: absolute;
+  inset-inline-end: 0;
   margin: 0;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--ink-3);
-}
-
-/* ===== רצועת הסבר התהליך ===== */
-.howto {
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-/* עמודות שוות, ובכל עמודה האייקון ממורכז מעל התווית. אייקון לצד טקסט
-   היה מציב כל אייקון בהיסט אחר, לפי אורך התווית שלו. */
-.howto-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin: 0;
-  padding-block: 14px;
-  list-style: none;
-}
-
-.howto-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  min-width: 0;
-  text-align: center;
-}
-
-/* חץ מפריד כ-CSS בלבד: דקורטיבי, ולכן לא מוסיף רעש לקורא מסך.
-   יושב במרווח שלפני העמודה, בגובה מרכז האייקון.
-   border-left+bottom מסובבים = חץ שמצביע שמאלה, כיוון הזרימה ב-RTL. */
-.howto-item:not(:first-child)::before {
-  content: "";
-  position: absolute;
-  top: 19px; /* מרכז אייקון של 38px */
-  inset-inline-start: -16px;
-  width: 7px;
-  height: 7px;
-  border-left: 1.5px solid #c8cfd6;
-  border-bottom: 1.5px solid #c8cfd6;
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.howto-icon {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--accent-tint);
-  color: var(--accent);
-}
-
-.howto-icon svg { width: 20px; height: 20px; }
-
-.howto-text {
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--ink-2);
 }
 
 /* ===== גוף העמוד ===== */
@@ -169,6 +112,7 @@ body {
 
 .stepper-list {
   display: flex;
+  justify-content: center;
   gap: 28px;
   margin: 0 0 10px;
   padding: 0;
@@ -282,6 +226,16 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
+  margin-inline: auto;
+}
+
+/* מצמצם ב-25% את רוחב הרשת עצמה (במקום כל עמודה בנפרד) - מכיוון שהעמודות
+   1fr מתחלקות ברוחב הזמין, כיווץ הרשת ל-75% מכווץ כל כרטיס (כולל התמונה,
+   שהיא aspect-ratio:1) באותה יחסיות בדיוק. מוגבל לרוחב שולחן העבודה (5
+   עמודות) - במעברי הטאבלט/נייד (3 ו-2 עמודות) הטקסט הארוך של שמות הדגמים
+   כבר לא משאיר מספיק מקום, וכיווץ נוסף שם היה גורם לגלישה אופקית. */
+@media (min-width: 1001px) {
+  .model-grid { max-width: 75%; }
 }
 
 .model {
@@ -351,16 +305,19 @@ body {
 }
 
 /* ===== מתנת ההצטרפות ===== */
+/* מצומצם ומורכז כקבוצה, באותה יחסיות ובאותה שיטה כמו .model-grid. */
 .reward {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 6px 22px;
   margin-top: 22px;
+  margin-inline: auto;
   padding: 18px 20px;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: #fbfcfd;
+  max-width: 75%;
 }
 
 .reward[hidden] { display: none; }
@@ -396,7 +353,7 @@ body {
   position: relative;
   grid-column: 1;
   grid-row: 1 / span 2;
-  width: 236px;
+  width: 177px; /* 75% מ-236px, אותה יחסיות כמו כרטיסי הדגם */
   margin: 0;
   line-height: 0;
   border-radius: 8px;
@@ -404,21 +361,11 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-.reward-image { display: block; width: 100%; height: auto; }
-
-/* הסכום מוטבע ברצועה הריקה שבין הכותרת ללוגואים שעל הכרטיס */
-.reward-amount {
-  position: absolute;
-  top: 45%;
-  inset-inline: 0;
-  direction: ltr;
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
-}
+/* aspect-ratio שומר את גובה התמונה מראש, לפני שהיא נטענת בפועל - בלעדיו
+   הקופסה גבוהה 0px עד סיום הטעינה, מה שמזיז את העמוד אחרי שהגלילה
+   האוטומטית ל-revealGiftCard() כבר חישבה יעד לפי המצב (הנמוך) הקודם,
+   והכפתור נשאר חתוך מתחת לגלישה. 1000x640 = מידות dreamcard.webp בפועל. */
+.reward-image { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 640; }
 
 /* ===== טופס ===== */
 .form {
@@ -693,16 +640,11 @@ body {
 
 @media (max-width: 1000px) {
   .model-grid { grid-template-columns: repeat(3, 1fr); }
-
-  /* בשלב הזה הטקסטים הארוכים נדחסים - מוותרים על החצים לטובת רוחב */
-  .howto-item:not(:first-child)::before { display: none; }
-  .howto-list { gap: 16px; }
-  .howto-text { font-size: 0.78rem; }
 }
 
 @media (max-width: 720px) {
   .reward { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 14px; }
-  .reward-card { grid-column: 1; grid-row: 1; width: 100%; max-width: 300px; }
+  .reward-card { grid-column: 1; grid-row: 1; width: 100%; max-width: 225px; } /* 75% מ-300px */
   .reward-head { grid-column: 1; grid-row: 2; }
   .reward-note { grid-column: 1; grid-row: 3; margin-top: 0; }
 }
@@ -715,19 +657,6 @@ body {
   .brand--xiaomi   { height: 17px; }
   .topbar-label { display: none; }
 
-  /* ארבע עמודות בלתי קריאות בנייד - יורדים לרשת 2x2 */
-  .howto-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px 10px;
-    padding-block: 13px;
-  }
-
-  .howto-item { gap: 6px; }
-
-  .howto-icon { width: 32px; height: 32px; }
-  .howto-icon svg { width: 18px; height: 18px; }
-  .howto-text { font-size: 0.74rem; line-height: 1.3; }
-
   .main { padding-block: 16px 28px; }
 
   .stepper-list { gap: 18px; }
@@ -739,7 +668,16 @@ body {
   .panel-foot { padding: 13px 16px; }
   .form .panel-foot { margin: 4px -16px -16px; padding-inline: 16px; }
 
-  .model-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  /* מוצר אחד בשורה בנייד - שני טורים דחסו את התמונה והטקסט מדי.
+     max-width:75% מצמצם ב-25% את הכרטיס עצמו, מאותה סיבה כמו בדסקטופ. */
+  .model-grid { grid-template-columns: 1fr; gap: 10px; max-width: 75%; }
+
+  /* מצמצם את גובה הכרטיס בכ-20%: הגורם העיקרי הוא יחס הגובה-רוחב של
+     התמונה (מרובעת 1:1 בדסקטופ -> 4:3 בנייד, חוסך כ-55px), עם קיצוץ קטן
+     נוסף בריווח ובריפוד האנכי כדי להשלים בדיוק ל-20% (חסך כולל ~61px
+     מתוך 304px, כלומר 20.0%). הרוחב לא נגע בו. */
+  .model-image { aspect-ratio: 4 / 3; }
+  .model { gap: 8px; padding: 12px 12px 14px; }
 
   /* טופס בעמודה אחת - שני שדות זה לצד זה צרים מדי לנייד */
   .form { grid-template-columns: 1fr; }

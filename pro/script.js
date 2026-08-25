@@ -2,11 +2,12 @@
 // חולקת עם הגרסה הראשית את הנכסים (../img), את רשימת החנויות (../stores.json)
 // ואת אותו חוזה נתונים מול Google Apps Script.
 
-const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw5fPKD2ybNbG-slrFgv4OLLAkji-jypSu33kz_gYgE1WWkZaxk9Zo5S3tkHGh2K_Ih/exec";
+const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzHnPkEbmIgyUuiBUdCZXvcc6BtOqR_UVjP9tuz_aXl07UcxrNbcLb9KMGFG9grv4m3ZA/exec";
 
 const state = {
   machine: null,
   machineSku: "",
+  machineLabel: "",
   firstName: "",
   lastName: "",
   phone: "",
@@ -14,53 +15,17 @@ const state = {
   store: "",
   gift: null,
   giftSku: "",
+  giftLabel: "",
   giftCardAmount: "",
   marketing: "",
   terms: "",
 };
 
-// מק"ט המוצר נגזר משם קובץ התמונה: ../img/c_81313.jpg -> 81313
-function skuFromCard(card) {
-  const img = card.querySelector("img");
-  if (!img) return "";
-  const match = (img.getAttribute("src") || "").match(/_([^/._]+)\.[a-z0-9]+$/i);
-  return match ? match[1] : "";
-}
-
-const machineLabels = {
-  tvMini55: "Xiaomi TV S Mini LED 55 אינץ'",
-  tvMini65: "Xiaomi TV S Mini LED 65 אינץ'",
-  tvMini75: "Xiaomi TV S Mini LED 75 אינץ'",
-  tvMini85: "Xiaomi TV S Mini LED 85 אינץ'",
-  tvMini98: "Xiaomi TV S Mini LED 98 אינץ'",
-};
-
-// המתנה קבועה - רק הסכום משתנה לפי הדגם. זהו המקום היחיד לעדכון הסכומים.
-const GIFT_ID = "dreamcard";
-const giftLabels = { dreamcard: "גיפטקארד Dream Card" };
-
-const giftCardAmounts = {
-  tvMini55: 250,
-  tvMini65: 300,
-  tvMini75: 400,
-  tvMini85: 550,
-  tvMini98: 850,
-};
-
-// תמונת הגיפטקארד לכל דגם. כרגע כולם על אותה תמונה;
-// לתמונה נפרדת לדגם - החליפו כאן את הנתיב.
-const GIFT_CARD_IMAGE_DEFAULT = "../img/dreamcard.webp";
-const giftCardImages = {
-  tvMini55: GIFT_CARD_IMAGE_DEFAULT,
-  tvMini65: GIFT_CARD_IMAGE_DEFAULT,
-  tvMini75: GIFT_CARD_IMAGE_DEFAULT,
-  tvMini85: GIFT_CARD_IMAGE_DEFAULT,
-  tvMini98: GIFT_CARD_IMAGE_DEFAULT,
-};
-
 // חשבונית (רשות) - נקראת ל-base64 בעת בחירת קובץ.
 const invoice = { data: null, name: "", type: "" };
 const INVOICE_MAX_BYTES = 5 * 1024 * 1024;
+
+const GIFT_CARD_IMAGE_DEFAULT = "../img/dreamcard.webp";
 
 function submitToSheet() {
   if (!SHEETS_WEBHOOK_URL) return;
@@ -69,8 +34,6 @@ function submitToSheet() {
     method: "POST",
     body: JSON.stringify({
       ...state,
-      machineLabel: machineLabels[state.machine],
-      giftLabel: giftLabels[state.gift],
       invoiceData: invoice.data,
       invoiceName: invoice.name,
       invoiceType: invoice.type,
@@ -113,55 +76,69 @@ function scrollToTop() {
 
 /* ================= שלב 1: בחירת דגם ================= */
 
-const modelCards = document.querySelectorAll(".model");
+const machineGrid = document.getElementById("machine-grid");
 const startButton = document.getElementById("start-button");
 
-modelCards.forEach((card) => {
-  card.addEventListener("click", () => selectModel(card));
-  card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      selectModel(card);
-    }
-  });
+// דגמי הטלוויזיה נטענים דינמית מ-items.json (ר' loadItems למטה).
+// itemsByMachine ממופה לפי מפתח ה-machine לאחר הטעינה.
+let itemsByMachine = {};
+
+machineGrid.addEventListener("click", (e) => {
+  const card = e.target.closest(".model");
+  if (card) selectModel(card);
+});
+
+machineGrid.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const card = e.target.closest(".model");
+  if (!card) return;
+  e.preventDefault();
+  selectModel(card);
 });
 
 function selectModel(card) {
-  modelCards.forEach((c) => {
+  machineGrid.querySelectorAll(".model").forEach((c) => {
     c.classList.remove("is-selected");
     c.setAttribute("aria-selected", "false");
   });
   card.classList.add("is-selected");
   card.setAttribute("aria-selected", "true");
 
-  state.machine = card.dataset.machine;
-  state.machineSku = skuFromCard(card);
+  const item = itemsByMachine[card.dataset.machine];
+  if (!item) return;
+
+  state.machine = item.machine;
+  state.machineSku = item.sku || "";
+  state.machineLabel = item.name || "";
   startButton.disabled = false;
 
-  renderGiftCard(state.machine);
+  renderGiftCard(item);
   revealGiftCard();
 }
 
 const giftCardSection = document.getElementById("giftcard-section");
 const giftCardImageEl = document.getElementById("giftcard-image");
-const giftCardAmountEl = document.getElementById("giftcard-amount");
 const giftCardCaptionEl = document.getElementById("giftcard-caption");
 
-function renderGiftCard(machineKey) {
-  const amount = giftCardAmounts[machineKey] || 0;
+// הסכום נשמר ב-state ונשלח לגיליון כרגיל - הוא רק לא מוצג יותר מוטבע על התמונה.
+function renderGiftCard(item) {
+  const amount = item.giftAmount || 0;
 
   if (!amount) {
     state.gift = null;
+    state.giftSku = "";
+    state.giftLabel = "";
     state.giftCardAmount = "";
     giftCardSection.hidden = true;
     return;
   }
 
-  state.gift = GIFT_ID;
+  state.gift = item.giftSku || "";
+  state.giftSku = item.giftSku || "";
+  state.giftLabel = item.giftName || "";
   state.giftCardAmount = amount;
-  giftCardImageEl.src = giftCardImages[machineKey] || GIFT_CARD_IMAGE_DEFAULT;
-  giftCardAmountEl.textContent = "₪" + amount.toLocaleString("he-IL");
-  giftCardCaptionEl.textContent = machineLabels[machineKey];
+  giftCardImageEl.src = item.giftImage ? "../img/" + item.giftImage : GIFT_CARD_IMAGE_DEFAULT;
+  giftCardCaptionEl.textContent = item.giftName || "";
   giftCardSection.hidden = false;
 }
 
@@ -171,28 +148,48 @@ function prefersReducedMotion() {
 
 /* גולל כך שגם המתנה וגם כפתור ההמשך גלויים. נמדד בזמן אמת, ולכן
    מתאים את עצמו לכל גובה מסך במקום להסתמך על ערך קבוע. */
+// ממתין לטעינת התמונה והפונט לפני שמודדים גובה: שניהם משנים את גובה העמוד
+// אחרי שהם נטענים (התמונה מ-0 לגובהה בפועל, הפונט ב-swap משנה מטריקות
+// טקסט), ואם מודדים לפני זה, יעד הגלילה מחושב לפי מצב נמוך יותר מהאמיתי -
+// והכפתור נשאר חתוך מתחת לגלישה.
+function whenLayoutSettled_() {
+  const waits = [];
+  if (document.fonts && document.fonts.ready) waits.push(document.fonts.ready);
+  if (giftCardImageEl && !giftCardImageEl.complete) {
+    waits.push(
+      new Promise((resolve) => {
+        giftCardImageEl.addEventListener("load", resolve, { once: true });
+        giftCardImageEl.addEventListener("error", resolve, { once: true });
+      })
+    );
+  }
+  return Promise.all(waits);
+}
+
 function revealGiftCard() {
   const actions = document.querySelector("#screen-0 .panel-foot");
   if (!actions || giftCardSection.hidden) return;
 
-  requestAnimationFrame(() => {
-    const PAD = 16;
-    const viewportHeight = window.innerHeight;
-    const cardTop = giftCardSection.getBoundingClientRect().top;
-    const actionsBottom = actions.getBoundingClientRect().bottom;
+  whenLayoutSettled_().then(() => {
+    requestAnimationFrame(() => {
+      const PAD = 16;
+      const viewportHeight = window.innerHeight;
+      const cardTop = giftCardSection.getBoundingClientRect().top;
+      const actionsBottom = actions.getBoundingClientRect().bottom;
 
-    if (cardTop >= 0 && actionsBottom <= viewportHeight) return; // כבר גלוי
+      if (cardTop >= 0 && actionsBottom <= viewportHeight) return; // כבר גלוי
 
-    const blockHeight = actionsBottom - cardTop;
-    const offset =
-      blockHeight + PAD * 2 <= viewportHeight
-        ? actionsBottom + PAD - viewportHeight
-        : cardTop - PAD;
+      const blockHeight = actionsBottom - cardTop;
+      const offset =
+        blockHeight + PAD * 2 <= viewportHeight
+          ? actionsBottom + PAD - viewportHeight
+          : cardTop - PAD;
 
-    const maxScroll = document.documentElement.scrollHeight - viewportHeight;
-    const target = Math.max(0, Math.min(window.scrollY + offset, maxScroll));
+      const maxScroll = document.documentElement.scrollHeight - viewportHeight;
+      const target = Math.max(0, Math.min(window.scrollY + offset, maxScroll));
 
-    window.scrollTo({ top: target, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+      window.scrollTo({ top: target, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    });
   });
 }
 
@@ -470,6 +467,87 @@ async function loadStores() {
 
 loadStores();
 
+/* ---- טעינת דגמי הטלוויזיה מ-items.json (משותף עם הגרסה הראשית) ---- */
+
+const ITEMS_URL = "../items.json";
+const ITEMS_FALLBACK = [
+  { machine: "tvMini55", sort: 1, sku: "81313", name: "Xiaomi TV S Mini LED 55 אינץ'", displayName: "TV S Mini LED 55”", description: "QD-Mini LED 4K · 308 אזורי עמעום · 120Hz", image: "c_81313.jpg", giftSku: "GC-DREAM-250", giftName: "גיפטקארד Dream Card", giftAmount: 250, giftImage: "dreamcard.webp" },
+  { machine: "tvMini65", sort: 2, sku: "81314", name: "Xiaomi TV S Mini LED 65 אינץ'", displayName: "TV S Mini LED 65”", description: "QD-Mini LED 4K · 384 אזורי עמעום · 120Hz", image: "c_81314.jpg", giftSku: "GC-DREAM-300", giftName: "גיפטקארד Dream Card", giftAmount: 300, giftImage: "dreamcard.webp" },
+  { machine: "tvMini75", sort: 3, sku: "81315", name: "Xiaomi TV S Mini LED 75 אינץ'", displayName: "TV S Mini LED 75”", description: "QD-Mini LED 4K · 512 אזורי עמעום · 120Hz", image: "c_81315.jpg", giftSku: "GC-DREAM-400", giftName: "גיפטקארד Dream Card", giftAmount: 400, giftImage: "dreamcard.webp" },
+  { machine: "tvMini85", sort: 4, sku: "81318", name: "Xiaomi TV S Mini LED 85 אינץ'", displayName: "TV S Mini LED 85”", description: "QD-Mini LED 4K · 640 אזורי עמעום · 144Hz", image: "c_81318.jpg", giftSku: "GC-DREAM-550", giftName: "גיפטקארד Dream Card", giftAmount: 550, giftImage: "dreamcard.webp" },
+  { machine: "tvMini98", sort: 5, sku: "81319", name: "Xiaomi TV S Mini LED 98 אינץ'", displayName: "TV S Mini LED 98”", description: "QD-Mini LED 4K · 880 אזורי עמעום · 144Hz", image: "c_81319.jpg", giftSku: "GC-DREAM-850", giftName: "גיפטקארד Dream Card", giftAmount: 850, giftImage: "dreamcard.webp" },
+];
+
+// ממיין לפי שדה sort (פריטים בלי sort יורדים לסוף, בסדר יציב ביניהם).
+function sortItems(list) {
+  return list
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => {
+      const sa = typeof a.item.sort === "number" ? a.item.sort : Infinity;
+      const sb = typeof b.item.sort === "number" ? b.item.sort : Infinity;
+      return sa - sb || a.index - b.index;
+    })
+    .map((entry) => entry.item);
+}
+
+function renderModels(list) {
+  machineGrid.innerHTML = "";
+  itemsByMachine = {};
+
+  sortItems(list).forEach((item) => {
+    itemsByMachine[item.machine] = item;
+
+    const card = document.createElement("article");
+    card.className = "model";
+    card.dataset.machine = item.machine;
+    card.tabIndex = 0;
+    card.setAttribute("role", "option");
+    card.setAttribute("aria-selected", "false");
+
+    const mark = document.createElement("span");
+    mark.className = "model-mark";
+    mark.setAttribute("aria-hidden", "true");
+    card.appendChild(mark);
+
+    const img = document.createElement("img");
+    img.src = "../img/" + item.image;
+    img.alt = item.name;
+    img.className = "model-image";
+    card.appendChild(img);
+
+    const text = document.createElement("div");
+    text.className = "model-text";
+
+    const name = document.createElement("h2");
+    name.className = "model-name";
+    name.textContent = item.displayName || item.name;
+    text.appendChild(name);
+
+    const spec = document.createElement("p");
+    spec.className = "model-spec";
+    spec.textContent = item.description || "";
+    text.appendChild(spec);
+
+    card.appendChild(text);
+    machineGrid.appendChild(card);
+  });
+}
+
+async function loadItems() {
+  let list = ITEMS_FALLBACK;
+  try {
+    const res = await fetch(ITEMS_URL + "?t=" + Date.now()); // מונע JSON ישן מהמטמון
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    if (Array.isArray(data.items) && data.items.length) list = data.items;
+  } catch (err) {
+    console.warn("items load failed - using fallback:", err);
+  }
+  renderModels(list);
+}
+
+loadItems();
+
 /* ================= אישור ================= */
 
 function renderConfirmation() {
@@ -477,14 +555,14 @@ function renderConfirmation() {
   details.innerHTML = "";
 
   const rows = [
-    ["דגם שנרכש", machineLabels[state.machine]],
+    ["דגם שנרכש", state.machineLabel],
     ["שם מלא", `${state.firstName} ${state.lastName}`],
     ["טלפון", state.phone],
     ["דואר אלקטרוני", state.email],
   ];
 
   if (state.giftCardAmount) {
-    rows.push([giftLabels[state.gift], "₪" + state.giftCardAmount.toLocaleString("he-IL")]);
+    rows.push([state.giftLabel, "₪" + state.giftCardAmount.toLocaleString("he-IL")]);
   }
   if (state.store) rows.push(["מקום רכישה", state.store]);
   if (invoice.name) rows.push(["חשבונית", invoice.name]);
@@ -512,11 +590,10 @@ document.getElementById("restart-button").addEventListener("click", () => {
   document.getElementById("terms-row").classList.remove("is-invalid");
   detailsForm.querySelector('[data-error-for="terms"]').textContent = "";
 
-  giftCardAmountEl.textContent = "";
   giftCardCaptionEl.textContent = "";
   giftCardSection.hidden = true;
 
-  modelCards.forEach((c) => {
+  machineGrid.querySelectorAll(".model").forEach((c) => {
     c.classList.remove("is-selected");
     c.setAttribute("aria-selected", "false");
   });

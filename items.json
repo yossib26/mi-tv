@@ -1,0 +1,121 @@
+{
+  "items": [
+    {
+      "machine": "tvMini55",
+      "sort": 1,
+      "sku": "81313",
+      "name": "Xiaomi TV S Mini LED 55 אינץ'",
+      "displayName": "TV S Mini LED 55”",
+      "description": "QD-Mini LED 4K · 308 אזורי עמעום · 120Hz",
+      "image": "c_81313.jpg",
+      "giftSku": "GC-DREAM-250",
+      "giftName": "גיפטקארד Dream Card 222",
+      "giftAmount": 250,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvMini65",
+      "sort": 2,
+      "sku": "81314",
+      "name": "Xiaomi TV S Mini LED 65 אינץ'",
+      "displayName": "TV S Mini LED 65”",
+      "description": "QD-Mini LED 4K · 384 אזורי עמעום · 120Hz",
+      "image": "c_81314.jpg",
+      "giftSku": "GC-DREAM-300",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 300,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvMini75",
+      "sort": 3,
+      "sku": "81315",
+      "name": "Xiaomi TV S Mini LED 75 אינץ'",
+      "displayName": "TV S Mini LED 75”",
+      "description": "QD-Mini LED 4K · 512 אזורי עמעום · 120Hz",
+      "image": "c_81315.jpg",
+      "giftSku": "GC-DREAM-400",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 400,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvMini85",
+      "sort": 4,
+      "sku": "81318",
+      "name": "Xiaomi TV S Mini LED 85 אינץ'",
+      "displayName": "TV S Mini LED 85”",
+      "description": "QD-Mini LED 4K · 640 אזורי עמעום · 144Hz",
+      "image": "c_81318.jpg",
+      "giftSku": "GC-DREAM-550",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 550,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvMini98",
+      "sort": 5,
+      "sku": "81319",
+      "name": "Xiaomi TV S Mini LED 98 אינץ'",
+      "displayName": "TV S Mini LED 98”",
+      "description": "QD-Mini LED 4K · 880 אזורי עמעום · 144Hz",
+      "image": "c_81319.jpg",
+      "giftSku": "GC-DREAM-850",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 850,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvDemoA43",
+      "sort": 6,
+      "sku": "90001",
+      "name": "Xiaomi TV A Pro 43 אינץ' (דמו)",
+      "displayName": "TV A Pro 43” (דמו)",
+      "description": "Full HD · Google TV · 60Hz",
+      "image": "c_81313.jpg",
+      "giftSku": "GC-DREAM-150",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 150,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvDemoA50",
+      "sort": 7,
+      "sku": "90002",
+      "name": "Xiaomi TV A Pro 50 אינץ' (דמו)",
+      "displayName": "TV A Pro 50” (דמו)",
+      "description": "4K UHD · Google TV · 60Hz",
+      "image": "c_81314.jpg",
+      "giftSku": "GC-DREAM-200",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 200,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvDemoA55",
+      "sort": 8,
+      "sku": "90003",
+      "name": "Xiaomi TV A Pro 55 אינץ' (דמו)",
+      "displayName": "TV A Pro 55” (דמו)",
+      "description": "4K UHD · Google TV · 60Hz · Dolby Audio",
+      "image": "c_81315.jpg",
+      "giftSku": "GC-DREAM-280",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 280,
+      "giftImage": "dreamcard.webp"
+    },
+    {
+      "machine": "tvDemoA65",
+      "sort": 9,
+      "sku": "90004",
+      "name": "Xiaomi TV A Pro 65 אינץ' (דמו)",
+      "displayName": "TV A Pro 65” (דמו)",
+      "description": "4K UHD · Google TV · 60Hz · Dolby Audio",
+      "image": "c_81318.jpg",
+      "giftSku": "GC-DREAM-350",
+      "giftName": "גיפטקארד Dream Card",
+      "giftAmount": 350,
+      "giftImage": "dreamcard.webp"
+    }
+  ]
+}

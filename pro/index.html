@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=13" />
 </head>
 <body>
 
@@ -19,62 +19,11 @@
           <img src="../logo.png" alt="קבוצת Hemilton" class="brand brand--hemilton" />
         </span>
         <span class="brand-divider" aria-hidden="true"></span>
-        <img src="../img/xiaomi-logo.svg" alt="Xiaomi" class="brand brand--xiaomi" />
+        <img src="../img/s_xiaomi.png" alt="Xiaomi" class="brand brand--xiaomi" />
       </div>
       <p class="topbar-label">מועדון הלקוחות</p>
     </div>
   </header>
-
-  <!-- הסבר התהליך. אין מספור, כדי לא להתנגש במספור הסטפר שמתחת. -->
-  <section class="howto" aria-label="כיצד עובד התהליך">
-    <ol class="shell howto-list">
-      <li class="howto-item">
-        <span class="howto-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 12v9H4v-9" /><path d="M2 7h20v5H2z" /><path d="M12 22V7" />
-            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
-            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
-          </svg>
-        </span>
-        <span class="howto-text">בחירת הטבה</span>
-      </li>
-
-      <li class="howto-item">
-        <span class="howto-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 10v10h16V10" /><path d="M2 10l2-6h16l2 6" />
-            <path d="M2 10a2.5 3 0 0 0 5 0 2.5 3 0 0 0 5 0 2.5 3 0 0 0 5 0 2.5 3 0 0 0 5 0" />
-            <path d="M9.5 20v-5.5h5V20" />
-          </svg>
-        </span>
-        <span class="howto-text">בחירת חנות</span>
-      </li>
-
-      <li class="howto-item">
-        <span class="howto-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-            <path d="M14 3v5h5" /><path d="M12 18.5V12" /><path d="M9.5 14.5L12 12l2.5 2.5" />
-          </svg>
-        </span>
-        <span class="howto-text">מילוי פרטים והעלאת חשבונית קנייה</span>
-      </li>
-
-      <li class="howto-item">
-        <span class="howto-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
-               stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" />
-            <path d="M8.5 10.5h7" /><path d="M8.5 14h4.5" />
-          </svg>
-        </span>
-        <span class="howto-text">קבלת SMS לאישור ההטבה עד 3 ימי עסקים</span>
-      </li>
-    </ol>
-  </section>
 
   <main class="shell main">
 
@@ -99,70 +48,24 @@
     <!-- שלב 1: בחירת דגם -->
     <section id="screen-0" class="panel screen is-active" aria-labelledby="screen0-title">
       <div class="panel-head">
-        <h1 id="screen0-title">בחירת דגם הטלוויזיה</h1>
-        <p>סמנו את הדגם שרכשתם. מתנת ההצטרפות תיקבע בהתאם לדגם.</p>
+        <h1 id="screen0-title">בחר את המוצר שרכשת</h1>
+        <p>סמנו את הדגם שרכשתם. ההטבה ברכישה תיקבע בהתאם לדגם.</p>
       </div>
 
       <div class="panel-body">
-        <div class="model-grid" id="machine-grid" role="listbox" aria-label="דגמי טלוויזיה">
+        <!-- הכרטיסים נטענים דינמית מ-../items.json על ידי script.js -->
+        <div class="model-grid" id="machine-grid" role="listbox" aria-label="דגמי טלוויזיה"></div>
 
-          <article class="model" data-machine="tvMini55" tabindex="0" role="option" aria-selected="false">
-            <span class="model-mark" aria-hidden="true"></span>
-            <img src="../img/c_81313.jpg" alt="Xiaomi TV S Mini LED 55 אינץ'" class="model-image" />
-            <div class="model-text">
-              <h2 class="model-name">TV S Mini LED 55”</h2>
-              <p class="model-spec">QD-Mini LED 4K · 308 אזורי עמעום · 120Hz</p>
-            </div>
-          </article>
-
-          <article class="model" data-machine="tvMini65" tabindex="0" role="option" aria-selected="false">
-            <span class="model-mark" aria-hidden="true"></span>
-            <img src="../img/c_81314.jpg" alt="Xiaomi TV S Mini LED 65 אינץ'" class="model-image" />
-            <div class="model-text">
-              <h2 class="model-name">TV S Mini LED 65”</h2>
-              <p class="model-spec">QD-Mini LED 4K · 384 אזורי עמעום · 120Hz</p>
-            </div>
-          </article>
-
-          <article class="model" data-machine="tvMini75" tabindex="0" role="option" aria-selected="false">
-            <span class="model-mark" aria-hidden="true"></span>
-            <img src="../img/c_81315.jpg" alt="Xiaomi TV S Mini LED 75 אינץ'" class="model-image" />
-            <div class="model-text">
-              <h2 class="model-name">TV S Mini LED 75”</h2>
-              <p class="model-spec">QD-Mini LED 4K · 512 אזורי עמעום · 120Hz</p>
-            </div>
-          </article>
-
-          <article class="model" data-machine="tvMini85" tabindex="0" role="option" aria-selected="false">
-            <span class="model-mark" aria-hidden="true"></span>
-            <img src="../img/c_81318.jpg" alt="Xiaomi TV S Mini LED 85 אינץ'" class="model-image" />
-            <div class="model-text">
-              <h2 class="model-name">TV S Mini LED 85”</h2>
-              <p class="model-spec">QD-Mini LED 4K · 640 אזורי עמעום · 144Hz</p>
-            </div>
-          </article>
-
-          <article class="model" data-machine="tvMini98" tabindex="0" role="option" aria-selected="false">
-            <span class="model-mark" aria-hidden="true"></span>
-            <img src="../img/c_81319.jpg" alt="Xiaomi TV S Mini LED 98 אינץ'" class="model-image" />
-            <div class="model-text">
-              <h2 class="model-name">TV S Mini LED 98”</h2>
-              <p class="model-spec">QD-Mini LED 4K · 880 אזורי עמעום · 144Hz</p>
-            </div>
-          </article>
-        </div>
-
-        <!-- מתנת ההצטרפות - נחשפת עם בחירת הדגם, בסכום הנגזר ממנו -->
+        <!-- הטבה ברכישה - נחשפת עם בחירת הדגם, בסכום הנגזר ממנו -->
         <aside class="reward" id="giftcard-section" hidden>
           <div class="reward-head">
-            <p class="reward-label">מתנת ההצטרפות</p>
+            <p class="reward-label">הטבה ברכישה</p>
             <p class="reward-for" id="giftcard-caption"></p>
           </div>
           <figure class="reward-card">
             <img src="../img/dreamcard.webp" alt="גיפטקארד Dream Card" class="reward-image" id="giftcard-image" />
-            <figcaption class="reward-amount" id="giftcard-amount"></figcaption>
           </figure>
-          <p class="reward-note">הגיפטקארד יישלח לכתובת האימייל שתמסרו בשלב הבא.</p>
+          <p class="reward-note">ההטבה תשלח לכתובת שתמסרו או כהודעת SMS למספר הטלפון שתמסרו.</p>
         </aside>
       </div>
 
@@ -279,6 +182,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>
