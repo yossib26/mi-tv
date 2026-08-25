@@ -43,21 +43,24 @@ body {
   align-items: center;
   justify-content: center;
   gap: 18px;
-  height: 46px;
+  height: 60px;
   overflow: hidden;
   margin-bottom: 10px;
 }
 
+/* הרוחב שומר על יחס החיתוך המקורי (46px גובה / 132px רוחב) כך שהלוגו
+   ממשיך להיחתך באותה יחסיות בדיוק - לגובה נראה של 60px. */
 .brand-logo {
-  width: 132px;
+  width: 172px;
   max-width: 100%;
   height: auto;
 }
 
-/* לוגו מותג משני בכותרת - ממודד לפי גובה כדי לשבת לצד לוגו המילטון */
+/* לוגו מותג משני בכותרת - ממודד לפי גובה כדי לשבת לצד לוגו המילטון,
+   באותו גובה נראה (60px) */
 .brand-header .brand-logo--secondary {
   width: auto;
-  height: 30px;
+  height: 60px;
 }
 
 .progress-dots {
